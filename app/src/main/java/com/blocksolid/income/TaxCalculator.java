@@ -11,13 +11,11 @@ public class TaxCalculator {
     int BASIC_RATE_THRESHOLD = 3178500;             // £31,785
     int HIGHER_RATE_THRESHOLD = 15000000;           // £150,000
 
-    int annualIncome;
-    int personalAllowance;
+    int annualIncome = 0;
+    int personalAllowance = MAX_PERSONAL_ALLOWANCE;
 
-    public TaxCalculator(int annualIncome) {
-        this.annualIncome = annualIncome;
-        calculatePersonalAllowance();
-        //calculateDeductions(personalAllowance);
+    public TaxCalculator() {
+
     }
 
     public void setAnnualIncome(int newAnnualIncome) {
@@ -28,7 +26,7 @@ public class TaxCalculator {
         return annualIncome;
     }
 
-    public int calculatePersonalAllowance() {
+    public int calculatePersonalAllowance(int annualIncome) {
         if (annualIncome > PERSONAL_ALLOWANCE_THRESHOLD) {
             int difference = annualIncome - PERSONAL_ALLOWANCE_THRESHOLD;
             if (difference % 200 > 0) {
