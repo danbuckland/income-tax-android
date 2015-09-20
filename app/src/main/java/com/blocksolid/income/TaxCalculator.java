@@ -29,7 +29,18 @@ public class TaxCalculator {
     }
 
     public int calculatePersonalAllowance() {
-        // TODO calculate the personal allowance that's needed to calculate tax deductions
+        if (annualIncome > PERSONAL_ALLOWANCE_THRESHOLD) {
+            int difference = annualIncome - PERSONAL_ALLOWANCE_THRESHOLD;
+            if (difference % 200 > 0) {
+                difference = difference - 100;
+            }
+            personalAllowance = MAX_PERSONAL_ALLOWANCE - (difference / 2);
+            if (personalAllowance < 0) {
+                personalAllowance = 0;
+            }
+        } else {
+            personalAllowance = MAX_PERSONAL_ALLOWANCE;
+        }
         return personalAllowance;
     }
 
