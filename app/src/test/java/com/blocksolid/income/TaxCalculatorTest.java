@@ -59,5 +59,13 @@ public class TaxCalculatorTest {
         assertEquals(0, result);
     }
 
+    @Test
+    public void testPersonalAllowanceCalculationForNegativeAnnualIncome() throws Exception {
+        // Checking what happens when the annual income is a negative number
+        TaxCalculator taxCalculator = new TaxCalculator(-10500000);
+        int result = taxCalculator.calculatePersonalAllowance();
+        assertEquals(1060000, result);
+    }
+
 
 }
