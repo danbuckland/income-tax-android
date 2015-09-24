@@ -56,10 +56,61 @@ public class TaxCalculatorTest {
 
     @Test
     public void testPersonalAllowanceCalculationForNegativeAnnualIncome() throws Exception {
-        // Checking what happens when the annual income is a negative number
+        // Checking that a negative annual income returns the maximum personal allowance
         int result = taxCalculator.calculatePersonalAllowance(-10500000);
         assertEquals(1060000, result);
     }
 
+    // Tests for calculateTotalTaxDeductions method
+
+    @Test
+    public void testTaxDeductionCalculationForAnnualIncomeOf40000() throws Exception {
+        // A salary of £40,000 should pay tax of £5,880
+        int result = taxCalculator.calculateTotalTaxDeductions(4000000);
+        assertEquals(588000, result);
+    }
+
+    @Test
+    public void testTaxDeductionCalculationForAnnualIncomeOf100000() throws Exception {
+        // A salary of £100,000 should pay tax of £29,403
+        //  £6,357 at the Basic rate 20%
+        // £23,046 at the Higher rate 40%
+        int result = taxCalculator.calculateTotalTaxDeductions(10000000);
+        assertEquals(2940300, result);
+    }
+
+    @Test
+    public void testTaxDeductionCalculationForAnnualIncomeOf160000() throws Exception {
+        // A salary of £160,000 should pay tax of £58,143
+        //  £6,357 at the Basic rate 20%
+        // £47,286 at the Higher rate 40%
+        //  £4,500 at the Additional rate 45%
+        int result = taxCalculator.calculateTotalTaxDeductions(16000000);
+        assertEquals(5814300, result);
+    }
+
+    @Test
+    public void testTaxDeductionCalculationForAnnualIncomeOf1000000() throws Exception {
+        // A salary of £1,000,000 should pay tax of £436,143
+        //   £6,357 at the Basic rate 20%
+        //  £47,286 at the Higher rate 40%
+        // £382,500 at the Additional rate 45%
+        int result = taxCalculator.calculateTotalTaxDeductions(100000000);
+        assertEquals(43614300, result);
+    }
+
+    @Test
+    public void testTaxDeductionCalculationForAnnualIncomeOf0() throws Exception {
+        // A salary of £0 should pay no tax
+        int result = taxCalculator.calculateTotalTaxDeductions(0);
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void testTaxDeductionCalculationForNegativeAnnualIncome() throws Exception {
+        // Checking that a negative annual income returns 0 deductions
+        int result = taxCalculator.calculateTotalTaxDeductions(-4000000);
+        assertEquals(0, result);
+    }
 
 }
