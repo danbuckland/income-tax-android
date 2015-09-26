@@ -64,4 +64,66 @@ public class TaxCalculator {
         return personalAllowance;
     }
 
+    public int calculateTotalTaxDeductions(int grossAnnualIncome) {
+
+        /**
+         * If I have a salary of 180,000
+         * I need to calculate the 45% tax I pay on the amount over £150,000 -> (30000 * 0.45 = 13500)
+         * I need to calculate the 40% tax I pay on the amount between £31,785 and £150,000 -> (118215 * 0.40 = 47286)
+         * I need to calculate the 20% tax I pay on the amount between £0 and £31,785 -> (31785 * 0.20 = 6357)
+         * I need to add these together to get the total amount deducted (13500 + 47286 + 6357 = 67143)
+         * I need to subtract this from my starting salary to get my net income (180000 - 67143 = 112857)
+         */
+        /**
+         * If I have a salary of 100,000
+         * I need to calculate the 45% tax I pay on the amount over £150,000 -> (0 * 0.45 = 0)
+         * I need to calculate the 40% tax I pay on the amount between £42,385 and £150,000 -> (57615 * 0.40 = 23046)
+         * I need to calculate the 20% tax I pay on the amount between £10,600 and £42,385 -> (31785 * 0.20 = 6357)
+         * I need to add these together to get the total amount deducted (0 + 23046 + 6357 = 29403)
+         * I need to subtract this from my starting salary to get my net income (100000 - 29403 = 70597)
+         */
+
+        // Calculate additional rate tax deduction
+        if (grossAnnualIncome > HIGHER_RATE_THRESHOLD) {
+            additionalRateDeduction = (int)(ADDITIONAL_RATE * (grossAnnualIncome - HIGHER_RATE_THRESHOLD));
+        } else {
+            additionalRateDeduction = 0;
+        }
+
+        // Calculate higher rate tax deduction
+        personalAllowance = calculatePersonalAllowance(grossAnnualIncome);
+        int assessedBasicRateThreshold = BASIC_RATE_THRESHOLD + personalAllowance;
+        int newHigherRateThreshold;
+        if (grossAnnualIncome > assessedBasicRateThreshold) {
+            if (grossAnnualIncome > HIGHER_RATE_THRESHOLD) {
+                // Possibly set a boolean here to avoid doing this same calculation twice
+                newHigherRateThreshold = HIGHER_RATE_THRESHOLD;
+            } else {
+                newHigherRateThreshold = grossAnnualIncome;
+            }
+            higherRateDeduction = (int)(HIGHER_RATE * (newHigherRateThreshold - assessedBasicRateThreshold));
+        } else {
+            higherRateDeduction = 0;
+        }
+
+        // Calculation basic rate tax deduction
+        if (grossAnnualIncome > personalAllowance) {
+            // If the amount of income breaches the basic rate threshold, then the amount over the
+            // threshold needs to be excluded from the basic rate calculation
+            if (grossAnnualIncome > assessedBasicRateThreshold) {
+                int amountAboveBasicRate = grossAnnualIncome - assessedBasicRateThreshold;
+                int amountEligibleForBasicRateTax = grossAnnualIncome - amountAboveBasicRate - personalAllowance;
+                basicRateDeduction = (int)(BASIC_RATE * amountEligibleForBasicRateTax);
+            } else {
+                int amountEligibleForBasicRateTax = (grossAnnualIncome - personalAllowance);
+                basicRateDeduction = (int)(BASIC_RATE * amountEligibleForBasicRateTax);
+            }
+        } else {
+            basicRateDeduction = 0;
+        }
+
+        return basicRateDeduction + higherRateDeduction + additionalRateDeduction;
+
+    }
+
 }
