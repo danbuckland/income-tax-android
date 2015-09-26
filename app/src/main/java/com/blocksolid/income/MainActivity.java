@@ -4,13 +4,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    TextView totalTaxDeductionsText;
+    TaxCalculator taxCalculator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        taxCalculator = new TaxCalculator();
+        totalTaxDeductionsText = (TextView)findViewById(R.id.textView);
+    }
+
+    public void displayDeductions(View view) {
+        // Display breakdown of all deductions
+        EditText editText = (EditText) findViewById(R.id.salary_amount_field);
+        if ((editText.getText()).length() > 0) {
+            Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
+            taxCalculator.setGrossAnnualIncome(enteredValue);
+            totalTaxDeductionsText.setText("Tax deductions: £" +
+                    String.valueOf(taxCalculator.getTotalTaxDeductions() / 100));
+        }
+        else {
+            totalTaxDeductionsText.setText("");
+        }
     }
 
     @Override

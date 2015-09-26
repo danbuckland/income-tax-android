@@ -15,6 +15,7 @@ public class TaxCalculator {
     int basicRateDeduction = 0;
     int higherRateDeduction = 0;
     int additionalRateDeduction = 0;
+    int totalTaxDeductions = 0;
     int nationalInsuranceContribution = 0;
     int totalDeductions = 0;
     int netAnnualIncome = 0;
@@ -25,6 +26,7 @@ public class TaxCalculator {
 
     public void setGrossAnnualIncome(int newGrossAnnualIncome) {
         grossAnnualIncome = newGrossAnnualIncome;
+        // All calculations should be done each time the salary is set
         calculateTotalTaxDeductions(grossAnnualIncome);
     }
 
@@ -122,8 +124,11 @@ public class TaxCalculator {
             basicRateDeduction = 0;
         }
 
-        return basicRateDeduction + higherRateDeduction + additionalRateDeduction;
-
+        totalTaxDeductions = basicRateDeduction + higherRateDeduction + additionalRateDeduction;
+        return totalTaxDeductions;
     }
 
+    public int getTotalTaxDeductions() {
+        return totalTaxDeductions;
+    }
 }
