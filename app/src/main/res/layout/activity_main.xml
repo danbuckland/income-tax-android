@@ -13,19 +13,19 @@
         android:text="Go"
         android:layout_alignParentRight="true"
         android:onClick="displayDeductions"
-        android:id="@+id/btn1"/>
+        android:id="@+id/main_btn_go"/>
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/btn1"
+        android:layout_toLeftOf="@+id/main_btn_go"
         android:hint="Enter salary amount"
-        android:id="@+id/salary_amount_field"
+        android:id="@+id/main_edit_salary"
         android:inputType="number"
         android:maxLength="7"/>
     <TextView android:text=""
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/salary_amount_field"
         android:id="@+id/textView"/>
+        android:layout_below="@id/main_edit_salary"
 </RelativeLayout>

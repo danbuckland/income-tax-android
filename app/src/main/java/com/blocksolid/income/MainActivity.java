@@ -18,12 +18,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         taxCalculator = new TaxCalculator();
-        totalTaxDeductionsText = (TextView)findViewById(R.id.textView);
+        totalTaxDeductionsText = (TextView)findViewById(R.id.main_txt_gross_value);
     }
 
     public void displayDeductions(View view) {
         // Display breakdown of all deductions
-        EditText editText = (EditText) findViewById(R.id.salary_amount_field);
+        EditText editText = (EditText) findViewById(R.id.main_edit_salary);
         if ((editText.getText()).length() > 0) {
             Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
             taxCalculator.setGrossAnnualIncome(enteredValue);
