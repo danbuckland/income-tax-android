@@ -5,6 +5,10 @@ AfterConfiguration do |config|
 end
 
 Before do |scenario|
+
+  @android ||= page(Base)
+	@screens ||= page(Screens)
+
   scenario = scenario.scenario_outline if scenario.respond_to?(:scenario_outline)
 
   feature = scenario.feature
