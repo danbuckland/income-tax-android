@@ -8,9 +8,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView totalTaxDeductionsText;
+    TextView grossAnnualIncomeValueText;
     TaxCalculator taxCalculator;
 
     @Override
@@ -18,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         taxCalculator = new TaxCalculator();
-        totalTaxDeductionsText = (TextView)findViewById(R.id.main_txt_gross_value);
+        grossAnnualIncomeValueText = (TextView)findViewById(R.id.main_txt_gross_value);
     }
 
     public void displayDeductions(View view) {
@@ -27,11 +30,10 @@ public class MainActivity extends AppCompatActivity {
         if ((editText.getText()).length() > 0) {
             Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
             taxCalculator.setGrossAnnualIncome(enteredValue);
-            totalTaxDeductionsText.setText("Tax deductions: £" +
-                    String.valueOf(taxCalculator.getTotalTaxDeductions() / 100));
+            grossAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getGrossAnnualIncome()));
         }
         else {
-            totalTaxDeductionsText.setText("");
+            grossAnnualIncomeValueText.setText("");
         }
     }
 
@@ -55,5 +57,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static String displayAsPoundsAndPence(int value) {
+        DecimalFormat currency = new DecimalFormat("£#,###,##0.00");
+        Double valueDouble = value/100.0;
+        return currency.format(valueDouble);
     }
 }
