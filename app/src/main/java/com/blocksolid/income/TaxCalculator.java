@@ -27,14 +27,14 @@ public class TaxCalculator {
     public void setGrossAnnualIncome(int newGrossAnnualIncome) {
         grossAnnualIncome = newGrossAnnualIncome;
         // All calculations should be done each time the salary is set
-        calculateTotalTaxDeductions(grossAnnualIncome);
+        calculateTotalTaxDeductions();
     }
 
     public int getGrossAnnualIncome() {
         return grossAnnualIncome;
     }
 
-    public int calculatePersonalAllowance(int grossAnnualIncome) {
+    public int calculatePersonalAllowance() {
 
         /**
          * The standard Personal Allowance is £10,600, which is the amount of income that tax will
@@ -66,7 +66,7 @@ public class TaxCalculator {
         return personalAllowance;
     }
 
-    public int calculateTotalTaxDeductions(int grossAnnualIncome) {
+    public int calculateTotalTaxDeductions() {
 
         /**
          * If I have a salary of 180,000
@@ -93,7 +93,7 @@ public class TaxCalculator {
         }
 
         // Calculate higher rate tax deduction
-        personalAllowance = calculatePersonalAllowance(grossAnnualIncome);
+        personalAllowance = calculatePersonalAllowance();
         int assessedBasicRateThreshold = BASIC_RATE_THRESHOLD + personalAllowance;
         int newHigherRateThreshold;
         if (grossAnnualIncome > assessedBasicRateThreshold) {
@@ -128,7 +128,31 @@ public class TaxCalculator {
         return totalTaxDeductions;
     }
 
+    public int calculateNationalInsuranceContribution(int grossAnnualIncome) {
+        //TODO
+        return 0;
+    }
+
     public int getTotalTaxDeductions() {
         return totalTaxDeductions;
+    }
+
+    public int getPersonalAllowance() {
+        return personalAllowance;
+    }
+
+    public int getTotalDeductions() {
+        //TODO
+        return totalDeductions;
+    }
+
+    public int getNationalInsuranceContributions() {
+        //TODO
+        return nationalInsuranceContribution;
+    }
+
+    public int getNetAnnualIncome() {
+        //TODO
+        return netAnnualIncome;
     }
 }

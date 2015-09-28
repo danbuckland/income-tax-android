@@ -10,42 +10,115 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Go"
+        android:text="@string/main_btn_go"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:onClick="displayDeductions"
         android:id="@+id/main_btn_go"/>
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/main_btn_go"
-        android:hint="Enter salary amount"
+        android:layout_toStartOf="@+id/main_btn_go"
+        android:hint="@string/main_enter_salary_amount"
         android:id="@+id/main_edit_salary"
         android:inputType="number"
         android:maxLength="7"/>
-    <LinearLayout
-        android:orientation="vertical"
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/main_edit_salary"
-        android:layout_marginTop="30dp">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_below="@+id/main_edit_salary"
+        android:layout_marginTop="30dp"
+        android:stretchColumns="1">
+        <TableRow>
             <TextView
                 android:id="@+id/main_txt_gross"
                 android:text="@string/main_gross_annual_income"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:padding="3dp"/>
             <TextView
                 android:id="@+id/main_txt_gross_value"
-                android:layout_toRightOf="@id/main_txt_gross"
-                android:layout_toEndOf="@id/main_txt_gross"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
                 android:gravity="end"
                 android:text=""
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
-        </RelativeLayout>
-    </LinearLayout>
+                android:layout_width="wrap_content"
+                android:padding="3dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/main_txt_allowance"
+                android:text="@string/main_personal_allowance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"/>
+            <TextView
+                android:id="@+id/main_txt_allowance_value"
+                android:gravity="end"
+                android:text=""
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="3dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/main_txt_tax_deductions"
+                android:text="@string/main_tax_deductions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"/>
+            <TextView
+                android:id="@+id/main_txt_tax_deductions_value"
+                android:gravity="end"
+                android:text=""
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="3dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/main_txt_national_insurance"
+                android:text="@string/main_national_insurance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"/>
+            <TextView
+                android:id="@+id/main_txt_national_insurance_value"
+                android:gravity="end"
+                android:text=""
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="3dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/main_txt_total_deductions"
+                android:text="@string/main_total_deductions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"/>
+            <TextView
+                android:id="@+id/main_txt_total_deductions_value"
+                android:gravity="end"
+                android:text=""
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="3dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/main_txt_net_income"
+                android:text="@string/main_net_income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="3dp"/>
+            <TextView
+                android:id="@+id/main_txt_net_income_value"
+                android:gravity="end"
+                android:text=""
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="3dp"/>
+        </TableRow>
+    </TableLayout>
 </RelativeLayout>

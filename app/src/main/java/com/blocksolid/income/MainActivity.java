@@ -12,8 +12,13 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView totalTaxDeductionsText;
     TextView grossAnnualIncomeValueText;
+    TextView personalAllowanceValueText;
+    TextView totalTaxDeductionsValueText;
+    TextView nationalInsuranceValueText;
+    TextView totalDeductionsValueText;
+    TextView netAnnualIncomeValueText;
+
     TaxCalculator taxCalculator;
 
     @Override
@@ -22,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         taxCalculator = new TaxCalculator();
         grossAnnualIncomeValueText = (TextView)findViewById(R.id.main_txt_gross_value);
+        personalAllowanceValueText = (TextView)findViewById(R.id.main_txt_allowance_value);
+        totalTaxDeductionsValueText = (TextView)findViewById(R.id.main_txt_tax_deductions_value);
+        nationalInsuranceValueText = (TextView)findViewById(R.id.main_txt_national_insurance_value);
+        totalDeductionsValueText = (TextView)findViewById(R.id.main_txt_total_deductions_value);
+        netAnnualIncomeValueText = (TextView)findViewById(R.id.main_txt_net_income_value);
     }
 
     public void displayDeductions(View view) {
@@ -31,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
             Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
             taxCalculator.setGrossAnnualIncome(enteredValue);
             grossAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getGrossAnnualIncome()));
+            personalAllowanceValueText.setText(displayAsPoundsAndPence(taxCalculator.getPersonalAllowance()));
+            totalTaxDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getTotalTaxDeductions()));
+            nationalInsuranceValueText.setText(displayAsPoundsAndPence(taxCalculator.getNationalInsuranceContributions()));
+            totalDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getTotalDeductions()));
+            netAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getNetAnnualIncome()));
         }
         else {
             grossAnnualIncomeValueText.setText("");
