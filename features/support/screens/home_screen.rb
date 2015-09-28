@@ -13,11 +13,19 @@ class HomeScreen < Base
     tap_button('Go')
   end
 
-  def gross_annual_income_is(value)
-    wait_for_element_exists("* id:'main_txt_gross_value'")
-    value_displayed = query("* id:'main_txt_gross_value'", :text).first
-    unless value == value_displayed
-      raise "Expected #{value} but instead saw #{value_displayed}"
+  def check_deductions(table)
+    deductions = table.rows_hash
+    deductions.each do |string, value|
+      string_id = $strings.fetch(string, "unnamed_string")
+      if string_id != "unnamed_string"
+        value_displayed = query("* id:'#{string_id}'", :text).first
+        unless value_displayed == value
+          raise "Expected #{string} to be #{value} but instead saw #{value_displayed}"
+        end
+      else
+        raise "\"#{string}\" is an unknown string. Please update the constants.rb file"
+      end
     end
   end
+  
 end

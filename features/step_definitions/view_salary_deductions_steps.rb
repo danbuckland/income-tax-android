@@ -3,18 +3,7 @@ When(/^I enter an annual income of "(.*?)"$/) do |amount|
 end
 
 Then(/^I should see the following breakdown$/) do |table|
-  deductions = table.rows_hash
-  deductions.each do |string, value|
-    string_id = $strings.fetch(string, "unnamed_string")
-    if string_id != "unnamed_string"
-      value_displayed = query("* id:'#{string_id}'", :text).first
-      unless value_displayed == value
-        raise "expected #{value} but saw #{value_displayed}"
-      end
-    else
-      raise "\"#{string}\" is an unknown string. Please update the constants.rb file"
-    end
-  end
+  @screens.home.check_deductions(table)
 end
 
 When(/^I attempt to enter an annual income of "(.*?)"$/) do |arg1|
