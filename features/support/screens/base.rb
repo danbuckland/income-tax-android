@@ -21,4 +21,16 @@ class Base < Calabash::ABase
     end
   end
 
+  def check_text_in_field(text, field_name)
+    field_id = $fields.fetch(field_name, "unnamed_field")
+    if field_id != "unnamed_field"
+      text_in_field = query("android.widget.EditText id:'#{field_id}'", :text).first
+    else
+      raise "\"#{field_name}\" is an unknown field. Please update the constants.rb file"
+    end
+    unless text == text_in_field
+      raise "Expected #{text} but instead found #{text_in_field}"
+    end
+  end
+
 end

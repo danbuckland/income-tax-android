@@ -6,7 +6,7 @@ end
 
 Before do |scenario|
 
-  @android ||= page(Base)
+  @base ||= page(Base)
 	@screens ||= page(Screens)
 
   scenario = scenario.scenario_outline if scenario.respond_to?(:scenario_outline)
