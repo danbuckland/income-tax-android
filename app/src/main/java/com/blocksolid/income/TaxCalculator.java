@@ -2,13 +2,27 @@ package com.blocksolid.income;
 
 public class TaxCalculator {
 
-    int MAX_PERSONAL_ALLOWANCE = 1060000;           // £10,600
-    int PERSONAL_ALLOWANCE_THRESHOLD = 10000000;    // £100,000
-    int BASIC_RATE_THRESHOLD = 3178500;             // £31,785
-    int HIGHER_RATE_THRESHOLD = 15000000;           // £150,000
-    double BASIC_RATE = 0.2;                        // 20%
-    double HIGHER_RATE = 0.4;                       // 40%
-    double ADDITIONAL_RATE = 0.45;                  // 45%
+    // 2015-16 Tax constants
+    private static final int MAX_PERSONAL_ALLOWANCE = 1060000;           // £10,600
+    private static final int PERSONAL_ALLOWANCE_THRESHOLD = 10000000;    // £100,000
+    private static final int TAX_BASIC_RATE_THRESHOLD = 3178500;             // £31,785
+    private static final int TAX_HIGHER_RATE_THRESHOLD = 15000000;           // £150,000
+    private static final double TAX_BASIC_RATE = 0.2;                        // 20%
+    private static final double TAX_HIGHER_RATE = 0.4;                       // 40%
+    private static final double TAX_ADDITIONAL_RATE = 0.45;                  // 45%
+
+    // 2015-16 National Insurance constants
+    // All values and calculations assume National Insurance Category A
+    private static final int LEL_NI = 582400;            // £5,824       Lower Earnings Limit
+    private static final int PT_NI = 806000;             // £8,060       Primary Threshold
+    private static final int ST_NI = 811200;             // £8,112       Secondary Threshold
+    private static final int UAP_NI = 4004000;           // £40,040      Upper Accrual Point
+    private static final int UST_NI = 4238500;           // £42,385      Upper Secondary Threshold (under 21)
+    private static final int UEL_NI = 4238500;           // £42,385      Upper Earnings Limit
+    private static final double LOWER_RATE_NI = 0.02;    //  2.00%
+    private static final double MIDDLE_RATE_NI = 0.0585; //  5.85%
+    private static final double UPPER_RATE_NI = 0.106;   // 10.60%
+    private static final double TOP_RATE_NI = 0.12;      // 12.00%
 
     int grossAnnualIncome = 0;
     int personalAllowance = MAX_PERSONAL_ALLOWANCE;
@@ -16,7 +30,7 @@ public class TaxCalculator {
     int higherRateDeduction = 0;
     int additionalRateDeduction = 0;
     int totalTaxDeductions = 0;
-    int nationalInsuranceContribution = 0;
+    int nationalInsuranceContributions = 0;
     int totalDeductions = 0;
     int netAnnualIncome = 0;
 
@@ -86,24 +100,24 @@ public class TaxCalculator {
          */
 
         // Calculate additional rate tax deduction
-        if (grossAnnualIncome > HIGHER_RATE_THRESHOLD) {
-            additionalRateDeduction = (int)(ADDITIONAL_RATE * (grossAnnualIncome - HIGHER_RATE_THRESHOLD));
+        if (grossAnnualIncome > TAX_HIGHER_RATE_THRESHOLD) {
+            additionalRateDeduction = (int)(TAX_ADDITIONAL_RATE * (grossAnnualIncome - TAX_HIGHER_RATE_THRESHOLD));
         } else {
             additionalRateDeduction = 0;
         }
 
         // Calculate higher rate tax deduction
         personalAllowance = calculatePersonalAllowance();
-        int assessedBasicRateThreshold = BASIC_RATE_THRESHOLD + personalAllowance;
+        int assessedBasicRateThreshold = TAX_BASIC_RATE_THRESHOLD + personalAllowance;
         int newHigherRateThreshold;
         if (grossAnnualIncome > assessedBasicRateThreshold) {
-            if (grossAnnualIncome > HIGHER_RATE_THRESHOLD) {
+            if (grossAnnualIncome > TAX_HIGHER_RATE_THRESHOLD) {
                 // Possibly set a boolean here to avoid doing this same calculation twice
-                newHigherRateThreshold = HIGHER_RATE_THRESHOLD;
+                newHigherRateThreshold = TAX_HIGHER_RATE_THRESHOLD;
             } else {
                 newHigherRateThreshold = grossAnnualIncome;
             }
-            higherRateDeduction = (int)(HIGHER_RATE * (newHigherRateThreshold - assessedBasicRateThreshold));
+            higherRateDeduction = (int)(TAX_HIGHER_RATE * (newHigherRateThreshold - assessedBasicRateThreshold));
         } else {
             higherRateDeduction = 0;
         }
@@ -115,10 +129,10 @@ public class TaxCalculator {
             if (grossAnnualIncome > assessedBasicRateThreshold) {
                 int amountAboveBasicRate = grossAnnualIncome - assessedBasicRateThreshold;
                 int amountEligibleForBasicRateTax = grossAnnualIncome - amountAboveBasicRate - personalAllowance;
-                basicRateDeduction = (int)(BASIC_RATE * amountEligibleForBasicRateTax);
+                basicRateDeduction = (int)(TAX_BASIC_RATE * amountEligibleForBasicRateTax);
             } else {
                 int amountEligibleForBasicRateTax = (grossAnnualIncome - personalAllowance);
-                basicRateDeduction = (int)(BASIC_RATE * amountEligibleForBasicRateTax);
+                basicRateDeduction = (int)(TAX_BASIC_RATE * amountEligibleForBasicRateTax);
             }
         } else {
             basicRateDeduction = 0;
