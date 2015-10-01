@@ -61,6 +61,15 @@ public class TaxCalculatorTest {
     }
 
     @Test
+    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf9999999() throws Exception {
+        // There is no personal allowance for a salary of £9,999,999
+        // This checks that it's not possible to have a negative personal allowance
+        taxCalculator.setGrossAnnualIncome(999999900);
+        int result = taxCalculator.calculatePersonalAllowance();
+        assertEquals(0, result);
+    }
+
+    @Test
     public void testPersonalAllowanceCalculationForNegativeGrossAnnualIncome() throws Exception {
         // Checking that a negative annual income returns the maximum personal allowance
         taxCalculator.setGrossAnnualIncome(-10500000);
@@ -68,7 +77,24 @@ public class TaxCalculatorTest {
         assertEquals(1060000, result);
     }
 
+
     // Tests for calculateTotalTaxDeductions method
+
+    @Test
+    public void testTaxDeductionCalculationForGrossAnnualIncomeOf10600() throws Exception {
+        // A salary of £10,600 should pay no tax
+        taxCalculator.setGrossAnnualIncome(1060000);
+        int result = taxCalculator.calculateTotalTaxDeductions();
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void testTaxDeductionCalculationForGrossAnnualIncomeOf10601() throws Exception {
+        // A salary of £10,601 should pay tax of 20p
+        taxCalculator.setGrossAnnualIncome(1060100);
+        int result = taxCalculator.calculateTotalTaxDeductions();
+        assertEquals(20, result);
+    }
 
     @Test
     public void testTaxDeductionCalculationForGrossAnnualIncomeOf40000() throws Exception {
@@ -79,6 +105,24 @@ public class TaxCalculatorTest {
     }
 
     @Test
+    public void testTaxDeductionCalculationForGrossAnnualIncomeOf42385() throws Exception {
+        // A salary of £42,385 should pay tax of £6,357
+        taxCalculator.setGrossAnnualIncome(4238500);
+        int result = taxCalculator.calculateTotalTaxDeductions();
+        assertEquals(635700, result);
+    }
+
+    @Test
+    public void testTaxDeductionCalculationForGrossAnnualIncomeOf42386() throws Exception {
+        // A salary of £42,386 should pay tax of £6,357.40
+        // £6,357 at the Basic rate 20%
+        //    40p at the Higher rate 40%
+        taxCalculator.setGrossAnnualIncome(4238600);
+        int result = taxCalculator.calculateTotalTaxDeductions();
+        assertEquals(635740, result);
+    }
+
+    @Test
     public void testTaxDeductionCalculationForGrossAnnualIncomeOf100000() throws Exception {
         // A salary of £100,000 should pay tax of £29,403
         //  £6,357 at the Basic rate 20%
@@ -86,6 +130,27 @@ public class TaxCalculatorTest {
         taxCalculator.setGrossAnnualIncome(10000000);
         int result = taxCalculator.calculateTotalTaxDeductions();
         assertEquals(2940300, result);
+    }
+
+    @Test
+    public void testTaxDeductionCalculationForGrossAnnualIncomeOf150000() throws Exception {
+        // A salary of £150,000 should pay tax of £53,643
+        //  £6,357 at the Basic rate 20%
+        // £47,286 at the Higher rate 40%
+        taxCalculator.setGrossAnnualIncome(15000000);
+        int result = taxCalculator.calculateTotalTaxDeductions();
+        assertEquals(5364300, result);
+    }
+
+    @Test
+    public void testTaxDeductionCalculationForGrossAnnualIncomeOf150001() throws Exception {
+        // A salary of £150,001 should pay tax of £53,643.45
+        //  £6,357 at the Basic rate 20%
+        // £47,286 at the Higher rate 40%
+        //   £0.45 at the Additional rate 45%
+        taxCalculator.setGrossAnnualIncome(15000100);
+        int result = taxCalculator.calculateTotalTaxDeductions();
+        assertEquals(5364345, result);
     }
 
     @Test
@@ -111,6 +176,17 @@ public class TaxCalculatorTest {
     }
 
     @Test
+    public void testTaxDeductionCalculationForGrossAnnualIncomeOf9999999() throws Exception {
+        // A salary of £9,999,999 should pay tax of £4,486,142.55
+        //     £6,357.00 at the Basic rate 20%
+        //    £47,286.00 at the Higher rate 40%
+        // £4,432,499.55 at the Additional rate 45%
+        taxCalculator.setGrossAnnualIncome(999999900);
+        int result = taxCalculator.calculateTotalTaxDeductions();
+        assertEquals(448614255, result);
+    }
+
+    @Test
     public void testTaxDeductionCalculationForGrossAnnualIncomeOf0() throws Exception {
         // A salary of £0 should pay no tax
         taxCalculator.setGrossAnnualIncome(0);
@@ -123,6 +199,177 @@ public class TaxCalculatorTest {
         // Checking that a negative annual income returns 0 deductions
         taxCalculator.setGrossAnnualIncome(-4000000);
         int result = taxCalculator.calculateTotalTaxDeductions();
+        assertEquals(0, result);
+    }
+
+
+    // Tests for calculateNationalInsuranceContributions method
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf0() throws Exception {
+        // A salary of £0 should pay no National Insurance
+        taxCalculator.setGrossAnnualIncome(0);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf5823() throws Exception {
+        // An annual income of £5,823 should pay no National Insurance
+        taxCalculator.setGrossAnnualIncome(582300);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf5824() throws Exception {
+        // An annual income of £5,824 should pay no National Insurance
+        taxCalculator.setGrossAnnualIncome(582400);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf5825() throws Exception {
+        // An annual income of £5,825 should pay no National Insurance
+        taxCalculator.setGrossAnnualIncome(582500);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf8059() throws Exception {
+        // An annual income of £8,059 should pay no National Insurance
+        taxCalculator.setGrossAnnualIncome(805900);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf8060() throws Exception {
+        // An annual income of £8,060 should pay no National Insurance
+        taxCalculator.setGrossAnnualIncome(806000);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf8061() throws Exception {
+        // An annual income of £8,061 should pay £0.12 no National Insurance
+        taxCalculator.setGrossAnnualIncome(806100);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(12, result);
+    }
+
+    @Test
+     public void testNationalInsuranceCalculationForGrossAnnualIncomeOf40000() throws Exception {
+        // An annual income of £40,000 should contribute £3,832.80 towards National Insurance
+        // £3,832.80 at the Top rate 12%
+        taxCalculator.setGrossAnnualIncome(4000000);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(383280, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf40040() throws Exception {
+        // An annual income of £40,040 should contribute £3,837.60 towards National Insurance
+        // £3,837.60 at the Top rate 12%
+        taxCalculator.setGrossAnnualIncome(4004000);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(383760, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf40041() throws Exception {
+        // An annual income of £40,040 should contribute £3,387.72 towards National Insurance
+        // £3,837.60 at the Top rate 12%
+        //     £0.12 at the Top rate 12%
+        taxCalculator.setGrossAnnualIncome(4004100);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(383772, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf41697() throws Exception {
+        // An annual income of £41,697 should contribute £4,036.44 towards National Insurance
+        // £3,837.60 at the Top rate 12%
+        //   £198.84 at the Top rate 12%
+        taxCalculator.setGrossAnnualIncome(4169700);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(403644, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf42384() throws Exception {
+        // An annual income of £42,384 should contribute £4,118.88 towards National Insurance
+        // £3,837.60 at the Top rate 12%
+        //   £281.28 at the Top rate 12%
+        //     £0.00 at the Lower rate 2%
+        taxCalculator.setGrossAnnualIncome(4238400);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(411888, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf42385() throws Exception {
+        // An annual income of £42,385 should contribute £4,119.00 towards National Insurance
+        // £3,837.60 at the Top rate 12%
+        //   £281.40 at the Top rate 12%
+        //     £0.00 at the Lower rate 2%
+        taxCalculator.setGrossAnnualIncome(4238500);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(411900, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf42386() throws Exception {
+        // An annual income of £42,386 should contribute £4,119.02 towards National Insurance
+        // £3,837.60 at the Top rate 12%
+        //   £281.40 at the Top rate 12%
+        //     £0.02 at the Lower rate 2%
+        taxCalculator.setGrossAnnualIncome(4238600);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(411902, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf100000() throws Exception {
+        // An annual income of £100,000 should contribute £5,271.30 towards National Insurance
+        // £3,837.60 at the Top rate 12%
+        //   £281.40 at the Top rate 12%
+        // £1,152.30 at the Lower rate 2%
+        taxCalculator.setGrossAnnualIncome(10000000);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(527130, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf2000000() throws Exception {
+        // An annual income of £2,000,000 should contribute £43,271.30 towards National Insurance
+        //  £3,837.60 at the Top rate 12%
+        //    £281.40 at the Top rate 12%
+        // £39,152.30 at the Lower rate 2%
+        taxCalculator.setGrossAnnualIncome(200000000);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(4327130, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf9999999() throws Exception {
+        // An annual income of £9,999,999 should contribute £203,271.28 towards National Insurance
+        //   £3,837.60 at the Top rate 12%
+        //     £281.40 at the Top rate 12%
+        // £199,152.28 at the Lower rate 2%
+        taxCalculator.setGrossAnnualIncome(999999900);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
+        assertEquals(20327128, result);
+    }
+
+    @Test
+    public void testNationalInsuranceCalculationForNegativeGrossAnnualIncome() throws Exception {
+        // Checking that a negative annual income returns 0 deductions
+        taxCalculator.setGrossAnnualIncome(-4005000);
+        int result = taxCalculator.calculateNationalInsuranceContributions();
         assertEquals(0, result);
     }
 

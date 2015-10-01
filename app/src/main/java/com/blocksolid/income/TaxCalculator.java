@@ -41,7 +41,7 @@ public class TaxCalculator {
     public void setGrossAnnualIncome(int newGrossAnnualIncome) {
         grossAnnualIncome = newGrossAnnualIncome;
         // All calculations should be done each time the salary is set
-        calculateTotalTaxDeductions();
+        calculateNetAnnualIncome();
     }
 
     public int getGrossAnnualIncome() {
@@ -78,6 +78,11 @@ public class TaxCalculator {
             personalAllowance = MAX_PERSONAL_ALLOWANCE;
         }
         return personalAllowance;
+    }
+
+    public int calculateTotalDeductions() {
+        totalDeductions = calculateTotalTaxDeductions() + calculateNationalInsuranceContributions();
+        return totalDeductions;
     }
 
     public int calculateTotalTaxDeductions() {
@@ -142,9 +147,66 @@ public class TaxCalculator {
         return totalTaxDeductions;
     }
 
-    public int calculateNationalInsuranceContribution(int grossAnnualIncome) {
-        //TODO
-        return 0;
+    public int calculateNationalInsuranceContributions() {
+        // TODO this whole method needs refactoring
+        // Calculate earnings at or above LEL_NI up to and including PT_NI
+        // This is always multiplied by 0% but may be different in different years
+        int earningsBetweenLelAndPt;
+        if (grossAnnualIncome >= PT_NI) {
+            earningsBetweenLelAndPt = PT_NI - LEL_NI;
+        } else if (grossAnnualIncome > LEL_NI) {
+            earningsBetweenLelAndPt = grossAnnualIncome - LEL_NI;
+        } else {
+            earningsBetweenLelAndPt = 0;
+        }
+
+        // Multiply that value by 0% (a bit silly but might needed)
+        int contributionBetweenLelAndPt = earningsBetweenLelAndPt*0;
+
+        // Calculate earnings above the PT_NI up to and including UAP
+        int earningsBetweenPtAndUap;
+        if (grossAnnualIncome >= UAP_NI) {
+            earningsBetweenPtAndUap = UAP_NI - PT_NI;
+        } else if (grossAnnualIncome > PT_NI) {
+            earningsBetweenPtAndUap = grossAnnualIncome - PT_NI;
+        } else {
+            earningsBetweenPtAndUap = 0;
+        }
+
+        // Multiply that value by NI_TOP_RATE
+        int contributionBetweenPtAndUap = (int)(earningsBetweenPtAndUap * TOP_RATE_NI);
+
+        // Calculate earnings above UAP up to and including UEL
+        int earningsBetweenUapAndUel;
+        if (grossAnnualIncome >= UEL_NI) {
+            earningsBetweenUapAndUel = UEL_NI - UAP_NI;
+        } else if (grossAnnualIncome > UAP_NI) {
+            earningsBetweenUapAndUel = grossAnnualIncome - UAP_NI;
+        } else {
+            earningsBetweenUapAndUel = 0;
+            // TODO if this part of the if statement is reached then we can skip higher calculations
+        }
+
+        // Multiply that value by NI_TOP_RATE
+        int contributionBetweenUapAndUel = (int)(earningsBetweenUapAndUel * TOP_RATE_NI);
+
+        // Calculate the balance of earnings above UEL
+        int earningsAboveUel;
+        if (grossAnnualIncome > UEL_NI) {
+            earningsAboveUel = grossAnnualIncome - UEL_NI;
+        } else {
+            earningsAboveUel = 0;
+        }
+
+        // Multiply that value by NI_LOWER_RATE
+        int contributionAboveUel = (int)(earningsAboveUel * LOWER_RATE_NI);
+
+        // Add all the values together and return
+        nationalInsuranceContributions = contributionBetweenLelAndPt
+                + contributionBetweenPtAndUap
+                + contributionBetweenUapAndUel
+                + contributionAboveUel;
+        return nationalInsuranceContributions;
     }
 
     public int getTotalTaxDeductions() {
@@ -156,17 +218,19 @@ public class TaxCalculator {
     }
 
     public int getTotalDeductions() {
-        //TODO
         return totalDeductions;
     }
 
     public int getNationalInsuranceContributions() {
-        //TODO
-        return nationalInsuranceContribution;
+        return nationalInsuranceContributions;
+    }
+
+    public void calculateNetAnnualIncome() {
+        totalDeductions = calculateTotalDeductions();
+        netAnnualIncome = grossAnnualIncome - totalDeductions;
     }
 
     public int getNetAnnualIncome() {
-        //TODO
         return netAnnualIncome;
     }
 }
