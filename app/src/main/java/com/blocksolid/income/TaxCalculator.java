@@ -148,65 +148,51 @@ public class TaxCalculator {
     }
 
     public int calculateNationalInsuranceContributions() {
-        // TODO this whole method needs refactoring
-        // Calculate earnings at or above LEL_NI up to and including PT_NI
-        // This is always multiplied by 0% but may be different in different years
-        int earningsBetweenLelAndPt;
-        if (grossAnnualIncome >= PT_NI) {
-            earningsBetweenLelAndPt = PT_NI - LEL_NI;
-        } else if (grossAnnualIncome > LEL_NI) {
-            earningsBetweenLelAndPt = grossAnnualIncome - LEL_NI;
-        } else {
-            earningsBetweenLelAndPt = 0;
+        int contributionBetweenLelAndPt;
+        int contributionBetweenPtAndUap;
+        int contributionBetweenUapAndUel;
+        int contributionAboveUel;
+        nationalInsuranceContributions = 0;
+
+        if (grossAnnualIncome < LEL_NI) {
+            return nationalInsuranceContributions;
         }
 
-        // Multiply that value by 0% (a bit silly but might needed)
-        int contributionBetweenLelAndPt = earningsBetweenLelAndPt*0;
-
-        // Calculate earnings above the PT_NI up to and including UAP
-        int earningsBetweenPtAndUap;
-        if (grossAnnualIncome >= UAP_NI) {
-            earningsBetweenPtAndUap = UAP_NI - PT_NI;
-        } else if (grossAnnualIncome > PT_NI) {
-            earningsBetweenPtAndUap = grossAnnualIncome - PT_NI;
+        // Calculate earnings between LEL_NI and PT_NI and multiply by 0%
+        if (grossAnnualIncome < PT_NI) {
+            contributionBetweenLelAndPt = (grossAnnualIncome - LEL_NI) * 0;
+            return nationalInsuranceContributions = contributionBetweenLelAndPt;
         } else {
-            earningsBetweenPtAndUap = 0;
+            contributionBetweenLelAndPt = (PT_NI - LEL_NI)*0;
         }
 
-        // Multiply that value by NI_TOP_RATE
-        int contributionBetweenPtAndUap = (int)(earningsBetweenPtAndUap * TOP_RATE_NI);
-
-        // Calculate earnings above UAP up to and including UEL
-        int earningsBetweenUapAndUel;
-        if (grossAnnualIncome >= UEL_NI) {
-            earningsBetweenUapAndUel = UEL_NI - UAP_NI;
-        } else if (grossAnnualIncome > UAP_NI) {
-            earningsBetweenUapAndUel = grossAnnualIncome - UAP_NI;
+        // Calculate earnings between PT_NI and UAP_NI and multiply by TOP_RATE_NI %
+        if (grossAnnualIncome < UAP_NI) {
+            contributionBetweenPtAndUap = (int) ((grossAnnualIncome - PT_NI) * TOP_RATE_NI);
+            return nationalInsuranceContributions = contributionBetweenLelAndPt +
+                                                    contributionBetweenPtAndUap;
         } else {
-            earningsBetweenUapAndUel = 0;
-            // TODO if this part of the if statement is reached then we can skip higher calculations
+            contributionBetweenPtAndUap = (int) ((UAP_NI - PT_NI) * TOP_RATE_NI);
         }
 
-        // Multiply that value by NI_TOP_RATE
-        int contributionBetweenUapAndUel = (int)(earningsBetweenUapAndUel * TOP_RATE_NI);
-
-        // Calculate the balance of earnings above UEL
-        int earningsAboveUel;
-        if (grossAnnualIncome > UEL_NI) {
-            earningsAboveUel = grossAnnualIncome - UEL_NI;
+        // Calculate earnings between UAP and UEL and multiply by TOP_RATE_NI %
+        if (grossAnnualIncome <= UEL_NI) {
+            contributionBetweenUapAndUel = (int) ((grossAnnualIncome - UAP_NI) * TOP_RATE_NI);
+            return nationalInsuranceContributions = contributionBetweenLelAndPt +
+                                                    contributionBetweenPtAndUap +
+                                                    contributionBetweenUapAndUel;
         } else {
-            earningsAboveUel = 0;
+            contributionBetweenUapAndUel = (int) ((UEL_NI - UAP_NI) * TOP_RATE_NI);
         }
 
-        // Multiply that value by NI_LOWER_RATE
-        int contributionAboveUel = (int)(earningsAboveUel * LOWER_RATE_NI);
+        // Calculate earning above UEL and multiply by LOWER_RATE_NI %
+        contributionAboveUel = (int)((grossAnnualIncome - UEL_NI) * LOWER_RATE_NI);
 
         // Add all the values together and return
-        nationalInsuranceContributions = contributionBetweenLelAndPt
-                + contributionBetweenPtAndUap
-                + contributionBetweenUapAndUel
-                + contributionAboveUel;
-        return nationalInsuranceContributions;
+        return nationalInsuranceContributions = contributionBetweenLelAndPt +
+                                                contributionBetweenPtAndUap +
+                                                contributionBetweenUapAndUel +
+                                                contributionAboveUel;
     }
 
     public int getTotalTaxDeductions() {
