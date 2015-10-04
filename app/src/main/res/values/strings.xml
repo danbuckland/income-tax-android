@@ -5,9 +5,9 @@
     <string name="main_gross_annual_income">Gross annual income:</string>
     <string name="main_personal_allowance">Personal allowance:</string>
     <string name="main_tax_deductions">Total tax deductions:</string>
-    <string name="main_national_insurance">National Insurance contribution:</string>
+    <string name="main_national_insurance">National Insurance contributions:</string>
     <string name="main_total_deductions">Total deductions:</string>
-    <string name="main_net_income">Net annual income</string>
+    <string name="main_net_income">Net annual income:</string>
     <string name="main_btn_go">Go</string>
     <string name="main_enter_salary_amount">Enter salary amount</string>
 </resources>
