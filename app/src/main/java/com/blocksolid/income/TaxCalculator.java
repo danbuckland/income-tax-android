@@ -57,12 +57,14 @@ public class TaxCalculator {
     }
 
     public int calculatePersonalAllowance() {
-
-        if (grossAnnualIncome > PERSONAL_ALLOWANCE_THRESHOLD) {
-            int difference = grossAnnualIncome - PERSONAL_ALLOWANCE_THRESHOLD;
+        if (grossAnnualIncome <= PERSONAL_ALLOWANCE_THRESHOLD) {
+            // Personal allowance set to the maximum if salary is below the threshold
+            return personalAllowance = MAX_PERSONAL_ALLOWANCE;
+        } else {
             // £1 is removed for each £2 earned above the personal allowance
-            // Remove the odd pound so that the difference can be divided by 2
+            int difference = grossAnnualIncome - PERSONAL_ALLOWANCE_THRESHOLD;
             if (difference % 200 > 0) {
+                // Remove the odd pound so that the difference can be divided by 2
                 difference = difference - 100;
             }
             personalAllowance = MAX_PERSONAL_ALLOWANCE - (difference / 2);
@@ -70,9 +72,6 @@ public class TaxCalculator {
             if (personalAllowance < 0) {
                 personalAllowance = 0;
             }
-        } else {
-            // Personal allowance set to the maximum if salary is below the threshold
-            personalAllowance = MAX_PERSONAL_ALLOWANCE;
         }
         return personalAllowance;
     }
