@@ -7,3 +7,5 @@
 /captures
 *.html
 Gemfile.lock
+/test_servers
+screenshot*.png
