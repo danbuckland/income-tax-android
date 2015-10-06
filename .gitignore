@@ -5,3 +5,7 @@
 .DS_Store
 /build
 /captures
+*.html
+Gemfile.lock
+/test_servers
+screenshot*.png
