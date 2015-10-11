@@ -1,8 +1,8 @@
-Feature: View salary deductions
+Feature: View annual deductions
 
 As a user,
 I want to provide information about my income,
-so that I can see a detailed breakdown of how much tax I am paying.
+so that I can see a detailed breakdown of how much tax I am paying annually.
 
   Background: Launch the application to the Home screen
     Given I am on the Home screen
