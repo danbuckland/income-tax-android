@@ -13,6 +13,10 @@ class HomeScreen < Base
     tap_button('Go')
   end
 
+  def view_monthly
+    tap_button('Monthly')
+  end
+
   def check_deductions(table)
     deductions = table.rows_hash
     deductions.each do |string, value|
@@ -27,5 +31,5 @@ class HomeScreen < Base
       end
     end
   end
-  
+
 end
