@@ -1,3 +1,4 @@
+@view_annual_discussions
 Feature: View annual deductions
 
 As a user,
@@ -7,7 +8,7 @@ so that I can see a detailed breakdown of how much tax I am paying annually.
   Background: Launch the application to the Home screen
     Given I am on the Home screen
 
-  Scenario: Calculate deductions against the average UK salary
+  Scenario: Calculate annual deductions against the average UK salary
     When I enter an annual income of "26500"
     Then I should see the following breakdown
     | Gross annual income             | £26,500.00 |
@@ -17,7 +18,7 @@ so that I can see a detailed breakdown of how much tax I am paying annually.
     | Total deductions                |  £5,392.80 |
     | Net annual income               | £21,107.20 |
 
-  Scenario: Calculate deductions against the UK Prime Minister's salary
+  Scenario: Calculate annual deductions against the UK Prime Minister's salary
     When I enter an annual income of "142500"
     Then I should see the following breakdown
     | Gross annual income             | £142,500.00 |
@@ -27,7 +28,7 @@ so that I can see a detailed breakdown of how much tax I am paying annually.
     | Total deductions                |  £56,764.30 |
     | Net annual income               |  £85,735.70 |
 
-  Scenario: Calculate deductions against a senior London banker's salary
+  Scenario: Calculate annual deductions against a senior London banker's salary
     When I enter an annual income of "1300000"
     Then I should see the following breakdown
     | Gross annual income             | £1,300,000.00 |
