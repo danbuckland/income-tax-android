@@ -34,21 +34,16 @@ public class MainActivity extends AppCompatActivity {
         netAnnualIncomeValueText = (TextView)findViewById(R.id.main_txt_net_income_value);
     }
 
-    public void displayDeductions(View view) {
+    public void displayAnnualDeductions(View view) {
         // Display breakdown of all deductions
         EditText editText = (EditText) findViewById(R.id.main_edit_salary);
         if ((editText.getText()).length() > 0) {
             Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
-            taxCalculator.setGrossAnnualIncome(enteredValue);
-            grossAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getGrossAnnualIncome()));
-            personalAllowanceValueText.setText(displayAsPoundsAndPence(taxCalculator.getPersonalAllowance()));
-            totalTaxDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getTotalTaxDeductions()));
-            nationalInsuranceValueText.setText(displayAsPoundsAndPence(taxCalculator.getNationalInsuranceContributions()));
-            totalDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getTotalDeductions()));
-            netAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getNetAnnualIncome()));
+            taxCalculator.setGrossIncome(enteredValue);
+            setAnnualTextValues();
         }
         else {
-            grossAnnualIncomeValueText.setText("");
+            clearTextValues();
         }
     }
 
@@ -58,17 +53,39 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.main_edit_salary);
         if ((editText.getText()).length() > 0) {
             Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
-            taxCalculator.setGrossAnnualIncome(enteredValue);
-            grossAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getGrossAnnualIncome())));
-            personalAllowanceValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getPersonalAllowance())));
-            totalTaxDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getTotalTaxDeductions())));
-            nationalInsuranceValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getNationalInsuranceContributions())));
-            totalDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getTotalDeductions())));
-            netAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getNetAnnualIncome())));
+            taxCalculator.setGrossIncome(enteredValue);
+            setMonthlyTextValues();
         }
         else {
-            grossAnnualIncomeValueText.setText("");
+            clearTextValues();
         }
+    }
+
+    public void setAnnualTextValues() {
+        grossAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualGrossIncome()));
+        personalAllowanceValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualPersonalAllowance()));
+        totalTaxDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualTotalTaxDeductions()));
+        nationalInsuranceValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualNiContributions()));
+        totalDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualTotalDeductions()));
+        netAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualNetIncome()));
+    }
+
+    public void setMonthlyTextValues() {
+        grossAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyGrossIncome()));
+        personalAllowanceValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyPersonalAllowance()));
+        totalTaxDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyTotalTaxDeductions()));
+        nationalInsuranceValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyNiContributions()));
+        totalDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyTotalDeductions()));
+        netAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyNetIncome()));
+    }
+
+    public void clearTextValues() {
+        grossAnnualIncomeValueText.setText("");
+        personalAllowanceValueText.setText("");
+        totalTaxDeductionsValueText.setText("");
+        nationalInsuranceValueText.setText("");
+        totalDeductionsValueText.setText("");
+        netAnnualIncomeValueText.setText("");
     }
 
     @Override

@@ -13,7 +13,7 @@
         android:text="@string/main_btn_go"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="displayDeductions"
+        android:onClick="displayAnnualDeductions"
         android:id="@+id/main_btn_go"/>
     <EditText
         android:layout_width="fill_parent"
