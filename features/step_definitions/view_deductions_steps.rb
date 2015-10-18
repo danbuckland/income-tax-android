@@ -6,6 +6,10 @@ When(/^I choose to view a monthly breakdown$/) do
   @screens.home.view_monthly
 end
 
+When(/^I choose to view a weekly breakdown$/) do
+  @screens.home.view_weekly
+end
+
 Then(/^I should see the following breakdown$/) do |table|
   @screens.home.check_values(table)
   @screens.home.check_strings(table)

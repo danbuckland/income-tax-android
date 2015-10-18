@@ -17,6 +17,10 @@ class HomeScreen < Base
     tap_button('Monthly')
   end
 
+  def view_weekly
+    tap_button('Weekly')
+  end
+
   def check_values(table)
     values = table.rows_hash
     values.each do |string, value|

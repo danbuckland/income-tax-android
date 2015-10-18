@@ -40,5 +40,3 @@ so that I can see a detailed breakdown of how much tax I am paying monthly.
     | National Insurance contributions: |   £2,439.28 |
     | Total deductions:                 |  £50,034.53 |
     | Net monthly income:               |  £58,298.81 |
-
-  #TODO find a way to test that monthly strings are being used.
