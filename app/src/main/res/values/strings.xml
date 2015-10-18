@@ -2,7 +2,7 @@
     <string name="app_name">Income</string>
 
     <string name="action_settings">Settings</string>
-    <string name="main_gross_annual_income">Gross annual income:</string>
+    <string name="main_gross_income">Gross annual income:</string>
     <string name="main_personal_allowance">Personal allowance:</string>
     <string name="main_tax_deductions">Total tax deductions:</string>
     <string name="main_national_insurance">National Insurance contributions:</string>

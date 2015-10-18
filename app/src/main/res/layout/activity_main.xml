@@ -42,7 +42,7 @@
         <TableRow>
             <TextView
                 android:id="@+id/main_txt_gross"
-                android:text="@string/main_gross_annual_income"
+                android:text="@string/main_gross_income"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="3dp"/>

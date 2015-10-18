@@ -7,7 +7,8 @@ When(/^I choose to view a monthly breakdown$/) do
 end
 
 Then(/^I should see the following breakdown$/) do |table|
-  @screens.home.check_deductions(table)
+  @screens.home.check_values(table)
+  @screens.home.check_strings(table)
 end
 
 When(/^I attempt to enter an annual income of "([^\"]*)"$/) do |amount|
