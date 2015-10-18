@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
         totalDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualTotalDeductions()));
         netIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualNetIncome()));
 
-        grossIncomeText.setText("Gross annual income:");
-        netIncomeText.setText("Net annual income:");
+        grossIncomeText.setText(R.string.main_gross_annual_income);
+        netIncomeText.setText(R.string.main_net_annual_income);
     }
 
     public void setMonthlyTextValues() {
@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
         totalDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyTotalDeductions()));
         netIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyNetIncome()));
 
-        grossIncomeText.setText("Gross monthly income:");
-        netIncomeText.setText("Net monthly income:");
+        grossIncomeText.setText(R.string.main_gross_monthly_income);
+        netIncomeText.setText(R.string.main_net_monthly_income);
     }
 
     public void clearTextValues() {
