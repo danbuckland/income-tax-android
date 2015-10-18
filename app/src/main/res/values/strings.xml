@@ -10,4 +10,5 @@
     <string name="main_net_income">Net annual income:</string>
     <string name="main_btn_go">Go</string>
     <string name="main_enter_salary_amount">Enter salary amount</string>
+    <string name="main_btn_monthly">Monhtly</string>
 </resources>

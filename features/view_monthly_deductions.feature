@@ -1,4 +1,4 @@
-@wip @view_monthly_deductions
+@view_monthly_deductions
 Feature: View monthly deductions
 
 As a user,

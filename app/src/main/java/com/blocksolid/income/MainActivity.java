@@ -52,6 +52,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void displayMonthlyDeductions(View view) {
+        // Display breakdown of all deductions monthly
+        // TODO refactor this and the above method
+        EditText editText = (EditText) findViewById(R.id.main_edit_salary);
+        if ((editText.getText()).length() > 0) {
+            Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
+            taxCalculator.setGrossAnnualIncome(enteredValue);
+            grossAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getGrossAnnualIncome())));
+            personalAllowanceValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getPersonalAllowance())));
+            totalTaxDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getTotalTaxDeductions())));
+            nationalInsuranceValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getNationalInsuranceContributions())));
+            totalDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getTotalDeductions())));
+            netAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.calculateMonthly(taxCalculator.getNetAnnualIncome())));
+        }
+        else {
+            grossAnnualIncomeValueText.setText("");
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

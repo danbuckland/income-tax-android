@@ -24,11 +24,20 @@
         android:id="@+id/main_edit_salary"
         android:inputType="number"
         android:maxLength="7"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_btn_monthly"
+        android:onClick="displayMonthlyDeductions"
+        android:layout_below="@+id/main_edit_salary"
+        android:layout_marginTop="10dp"
+        android:id="@+id/main_btn_monthly"/>
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_edit_salary"
-        android:layout_marginTop="30dp"
+        android:layout_below="@+id/main_btn_monthly"
+        android:layout_marginTop="10dp"
         android:stretchColumns="1">
         <TableRow>
             <TextView

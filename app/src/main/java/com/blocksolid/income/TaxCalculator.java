@@ -192,4 +192,9 @@ public class TaxCalculator {
     public int getNetAnnualIncome() {
         return netAnnualIncome;
     }
+
+    public int calculateMonthly(int value) {
+        double result = value / 12.0;
+        return (int) (Math.round(result));
+    }
 }
