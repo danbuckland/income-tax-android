@@ -406,4 +406,36 @@ public class TaxCalculatorTest {
         assertEquals(-100, result);
     }
 
+
+    // Tests for weekly divider method
+
+    @Test
+    public void testWeeklyDivideWithNoRemainders() throws Exception {
+        int result = taxCalculator.weekly(5200);
+        assertEquals(100, result);
+    }
+
+    @Test
+    public void testWeeklyDivideRoundingUp() throws Exception {
+        int result = taxCalculator.weekly(5226);
+        assertEquals(101, result);
+    }
+
+    @Test
+    public void testWeeklyDivideRoundingDown() throws Exception {
+        int result = taxCalculator.weekly(5225);
+        assertEquals(100, result);
+    }
+
+    @Test
+    public void testWeeklyDivide0() throws Exception {
+        int result = taxCalculator.weekly(0);
+        assertEquals(0, result);
+    }
+
+    @Test
+    public void testWeeklyDivideNegativeNumber() throws Exception {
+        int result = taxCalculator.weekly(-5226);
+        assertEquals(-100, result);
+    }
 }

@@ -221,4 +221,35 @@ public class TaxCalculator {
     public int getMonthlyNetIncome() {
         return monthly(netIncome);
     }
+
+    public int weekly(int value) {
+        double result = value / 52.0;
+        return (int) (Math.round(result));
+    }
+
+    public int getWeeklyGrossIncome() {
+        return weekly(grossIncome);
+    }
+
+    public int getWeeklyPersonalAllowance() {
+        return weekly(personalAllowance);
+    }
+
+    public int getWeeklyTotalTaxDeductions() {
+        return weekly(totalTaxDeductions);
+    }
+
+    public int getWeeklyNiContributions() {
+        return weekly(nationalInsuranceContributions);
+    }
+
+    public int getWeeklyTotalDeductions() {
+        return weekly(totalDeductions);
+    }
+
+    public int getWeeklyNetIncome() {
+        return weekly(netIncome);
+    }
+
+
 }

@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayAnnualDeductions(View view) {
-        // Display breakdown of all deductions
+        // Display breakdown of all deductions annually
         EditText editText = (EditText) findViewById(R.id.main_edit_salary);
         if ((editText.getText()).length() > 0) {
             Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
@@ -55,12 +55,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayMonthlyDeductions(View view) {
         // Display breakdown of all deductions monthly
-        // TODO refactor this and the above method
         EditText editText = (EditText) findViewById(R.id.main_edit_salary);
         if ((editText.getText()).length() > 0) {
             Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
             taxCalculator.setGrossIncome(enteredValue);
             setMonthlyTextValues();
+        }
+        else {
+            clearTextValues();
+        }
+    }
+
+    public void displayWeeklyDeductions(View view) {
+        // Display breakdown of all deductions monthly
+        EditText editText = (EditText) findViewById(R.id.main_edit_salary);
+        if ((editText.getText()).length() > 0) {
+            Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
+            taxCalculator.setGrossIncome(enteredValue);
+            setWeeklyTextValues();
         }
         else {
             clearTextValues();
@@ -89,6 +101,18 @@ public class MainActivity extends AppCompatActivity {
 
         grossIncomeText.setText(R.string.main_gross_monthly_income);
         netIncomeText.setText(R.string.main_net_monthly_income);
+    }
+
+    public void setWeeklyTextValues() {
+        grossIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getWeeklyGrossIncome()));
+        personalAllowanceValueText.setText(displayAsPoundsAndPence(taxCalculator.getWeeklyPersonalAllowance()));
+        totalTaxDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getWeeklyTotalTaxDeductions()));
+        nationalInsuranceValueText.setText(displayAsPoundsAndPence(taxCalculator.getWeeklyNiContributions()));
+        totalDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getWeeklyTotalDeductions()));
+        netIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getWeeklyNetIncome()));
+
+        grossIncomeText.setText(R.string.main_gross_weekly_income);
+        netIncomeText.setText(R.string.main_net_weekly_income);
     }
 
     public void clearTextValues() {
