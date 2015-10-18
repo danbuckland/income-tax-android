@@ -12,12 +12,15 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView grossAnnualIncomeValueText;
+    TextView grossIncomeValueText;
     TextView personalAllowanceValueText;
     TextView totalTaxDeductionsValueText;
     TextView nationalInsuranceValueText;
     TextView totalDeductionsValueText;
-    TextView netAnnualIncomeValueText;
+    TextView netIncomeValueText;
+
+    TextView grossIncomeText;
+    TextView netIncomeText;
 
     TaxCalculator taxCalculator;
 
@@ -26,12 +29,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         taxCalculator = new TaxCalculator();
-        grossAnnualIncomeValueText = (TextView)findViewById(R.id.main_txt_gross_value);
+        grossIncomeValueText = (TextView)findViewById(R.id.main_txt_gross_value);
         personalAllowanceValueText = (TextView)findViewById(R.id.main_txt_allowance_value);
         totalTaxDeductionsValueText = (TextView)findViewById(R.id.main_txt_tax_deductions_value);
         nationalInsuranceValueText = (TextView)findViewById(R.id.main_txt_national_insurance_value);
         totalDeductionsValueText = (TextView)findViewById(R.id.main_txt_total_deductions_value);
-        netAnnualIncomeValueText = (TextView)findViewById(R.id.main_txt_net_income_value);
+        netIncomeValueText = (TextView)findViewById(R.id.main_txt_net_income_value);
+
+        grossIncomeText = (TextView)findViewById(R.id.main_txt_gross);
+        netIncomeText = (TextView)findViewById(R.id.main_txt_net_income);
     }
 
     public void displayAnnualDeductions(View view) {
@@ -62,30 +68,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setAnnualTextValues() {
-        grossAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualGrossIncome()));
+        grossIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualGrossIncome()));
         personalAllowanceValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualPersonalAllowance()));
         totalTaxDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualTotalTaxDeductions()));
         nationalInsuranceValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualNiContributions()));
         totalDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualTotalDeductions()));
-        netAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualNetIncome()));
+        netIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualNetIncome()));
+
+        grossIncomeText.setText("Gross annual income:");
+        netIncomeText.setText("Net annual income:");
     }
 
     public void setMonthlyTextValues() {
-        grossAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyGrossIncome()));
+        grossIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyGrossIncome()));
         personalAllowanceValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyPersonalAllowance()));
         totalTaxDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyTotalTaxDeductions()));
         nationalInsuranceValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyNiContributions()));
         totalDeductionsValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyTotalDeductions()));
-        netAnnualIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyNetIncome()));
+        netIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getMonthlyNetIncome()));
+
+        grossIncomeText.setText("Gross monthly income:");
+        netIncomeText.setText("Net monthly income:");
     }
 
     public void clearTextValues() {
-        grossAnnualIncomeValueText.setText("");
+        grossIncomeValueText.setText("");
         personalAllowanceValueText.setText("");
         totalTaxDeductionsValueText.setText("");
         nationalInsuranceValueText.setText("");
         totalDeductionsValueText.setText("");
-        netAnnualIncomeValueText.setText("");
+        netIncomeValueText.setText("");
     }
 
     @Override
