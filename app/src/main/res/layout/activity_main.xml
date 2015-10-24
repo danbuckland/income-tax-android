@@ -22,7 +22,7 @@
         android:text="@string/main_btn_go"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="displayOnGo"
+        android:onClick="displayOnGoBtn"
         android:id="@+id/main_btn_go"/>
     <EditText
         android:layout_below="@+id/main_txt_enter_salary"
@@ -33,7 +33,8 @@
         android:hint="@string/main_edit_salary_hint"
         android:id="@+id/main_edit_salary"
         android:inputType="number"
-        android:maxLength="7"/>
+        android:maxLength="7"
+        android:imeOptions="actionGo"/>
     <RadioGroup
         android:id="@+id/main_radio_group"
         android:layout_width="match_parent"

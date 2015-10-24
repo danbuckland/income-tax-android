@@ -2,9 +2,11 @@ package com.blocksolid.income;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -26,10 +28,13 @@ public class MainActivity extends AppCompatActivity {
     TextView totalDeductionsValueText;
     TextView netIncomeValueText;
 
+    EditText salaryEditText;
+
     TextView grossIncomeText;
     TextView netIncomeText;
 
     TaxCalculator taxCalculator;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        salaryEditText = (EditText) findViewById(R.id.main_edit_salary);
+        salaryEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+                    displayOnGo();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+
         breakdownTable = (TableLayout)findViewById(R.id.main_tbl_breakdown);
 
         taxCalculator = new TaxCalculator();
@@ -64,7 +82,11 @@ public class MainActivity extends AppCompatActivity {
         netIncomeText = (TextView)findViewById(R.id.main_txt_net_income);
     }
 
-    public void displayOnGo(View view) {
+    public void displayOnGoBtn(View view) {
+        displayOnGo();
+    }
+
+    public void displayOnGo() {
         radioGroup.setVisibility(View.VISIBLE);
         breakdownTable.setVisibility(View.VISIBLE);
 
@@ -81,9 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayAnnualDeductions() {
         // Display breakdown of all deductions annually
-        EditText editText = (EditText) findViewById(R.id.main_edit_salary);
-        if ((editText.getText()).length() > 0) {
-            Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
+        if ((salaryEditText.getText()).length() > 0) {
+            Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
             taxCalculator.setGrossIncome(enteredValue);
             setAnnualTextValues();
         }
@@ -94,9 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayMonthlyDeductions() {
         // Display breakdown of all deductions monthly
-        EditText editText = (EditText) findViewById(R.id.main_edit_salary);
-        if ((editText.getText()).length() > 0) {
-            Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
+        if ((salaryEditText.getText()).length() > 0) {
+            Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
             taxCalculator.setGrossIncome(enteredValue);
             setMonthlyTextValues();
         }
@@ -107,9 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayWeeklyDeductions() {
         // Display breakdown of all deductions monthly
-        EditText editText = (EditText) findViewById(R.id.main_edit_salary);
-        if ((editText.getText()).length() > 0) {
-            Integer enteredValue = Integer.valueOf(editText.getText().toString())*100;
+        if ((salaryEditText.getText()).length() > 0) {
+            Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
             taxCalculator.setGrossIncome(enteredValue);
             setWeeklyTextValues();
         }
