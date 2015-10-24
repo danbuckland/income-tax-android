@@ -1,7 +1,8 @@
 $buttons = {
   "Go" => "main_btn_go",
-  "Monthly" => "main_btn_monthly",
-  "Weekly" => "main_btn_weekly"
+  "Yearly" => "main_radio_btn_yearly",
+  "Monthly" => "main_radio_btn_monthly",
+  "Weekly" => "main_radio_btn_weekly"
 }
 
 $fields = {

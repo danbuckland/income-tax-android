@@ -13,6 +13,10 @@ class HomeScreen < Base
     tap_button('Go')
   end
 
+  def view_yearly
+    tap_button('Yearly')
+  end
+
   def view_monthly
     tap_button('Monthly')
   end

@@ -7,48 +7,68 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_txt_enter_salary"
+        android:textSize="18sp"
+        android:id="@+id/main_txt_enter_salary"/>
     <Button
+        android:layout_below="@+id/main_txt_enter_salary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_btn_go"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="displayAnnualDeductions"
+        android:onClick="displayOnGo"
         android:id="@+id/main_btn_go"/>
     <EditText
+        android:layout_below="@+id/main_txt_enter_salary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/main_btn_go"
         android:layout_toStartOf="@+id/main_btn_go"
-        android:hint="@string/main_enter_salary_amount"
+        android:hint="@string/main_edit_salary_hint"
         android:id="@+id/main_edit_salary"
         android:inputType="number"
         android:maxLength="7"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/main_btn_monthly"
-        android:layout_toEndOf="@+id/main_btn_monthly"
-        android:text="@string/main_btn_weekly"
-        android:onClick="displayWeeklyDeductions"
-        android:layout_below="@+id/main_edit_salary"
-        android:layout_marginTop="10dp"
-        android:id="@+id/main_btn_weekly"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_btn_monthly"
-        android:onClick="displayMonthlyDeductions"
-        android:layout_below="@+id/main_edit_salary"
-        android:layout_marginTop="10dp"
-        android:id="@+id/main_btn_monthly"/>
-
-    <TableLayout
+    <RadioGroup
+        android:id="@+id/main_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_btn_monthly"
+        android:layout_below="@+id/main_edit_salary"
         android:layout_marginTop="10dp"
-        android:stretchColumns="1">
+        android:orientation="horizontal"
+        android:checkedButton="@+id/main_radio_btn_yearly"
+        android:visibility="gone">
+        <RadioButton
+            android:id="@+id/main_radio_btn_yearly"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/main_btn_yearly"/>
+        <RadioButton
+            android:id="@+id/main_radio_btn_monthly"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/main_btn_monthly"/>
+        <RadioButton
+            android:id="@+id/main_radio_btn_weekly"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/main_btn_weekly"/>
+    </RadioGroup>
+
+    <TableLayout
+        android:id="@+id/main_tbl_breakdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_radio_group"
+        android:layout_marginTop="10dp"
+        android:stretchColumns="1"
+        android:visibility="gone">
         <TableRow>
             <TextView
                 android:id="@+id/main_txt_gross"

@@ -6,11 +6,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
+
+    private RadioGroup radioGroup;
+
+    TableLayout breakdownTable;
 
     TextView grossIncomeValueText;
     TextView personalAllowanceValueText;
@@ -28,6 +35,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        radioGroup = (RadioGroup) findViewById(R.id.main_radio_group);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.main_radio_btn_yearly) {
+                    displayAnnualDeductions();
+                } else if (checkedId == R.id.main_radio_btn_monthly) {
+                    displayMonthlyDeductions();
+                } else {
+                    displayWeeklyDeductions();
+                }
+            }
+        });
+
+        breakdownTable = (TableLayout)findViewById(R.id.main_tbl_breakdown);
+
         taxCalculator = new TaxCalculator();
         grossIncomeValueText = (TextView)findViewById(R.id.main_txt_gross_value);
         personalAllowanceValueText = (TextView)findViewById(R.id.main_txt_allowance_value);
@@ -40,7 +64,22 @@ public class MainActivity extends AppCompatActivity {
         netIncomeText = (TextView)findViewById(R.id.main_txt_net_income);
     }
 
-    public void displayAnnualDeductions(View view) {
+    public void displayOnGo(View view) {
+        radioGroup.setVisibility(View.VISIBLE);
+        breakdownTable.setVisibility(View.VISIBLE);
+
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+
+        if(selectedId == R.id.main_radio_btn_yearly) {
+            displayAnnualDeductions();
+        } else if (selectedId == R.id.main_radio_btn_monthly) {
+            displayMonthlyDeductions();
+        } else {
+            displayWeeklyDeductions();
+        }
+    }
+
+    public void displayAnnualDeductions() {
         // Display breakdown of all deductions annually
         EditText editText = (EditText) findViewById(R.id.main_edit_salary);
         if ((editText.getText()).length() > 0) {
@@ -53,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void displayMonthlyDeductions(View view) {
+    public void displayMonthlyDeductions() {
         // Display breakdown of all deductions monthly
         EditText editText = (EditText) findViewById(R.id.main_edit_salary);
         if ((editText.getText()).length() > 0) {
@@ -66,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void displayWeeklyDeductions(View view) {
+    public void displayWeeklyDeductions() {
         // Display breakdown of all deductions monthly
         EditText editText = (EditText) findViewById(R.id.main_edit_salary);
         if ((editText.getText()).length() > 0) {
