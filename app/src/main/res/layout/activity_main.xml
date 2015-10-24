@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:text="@string/main_txt_enter_salary"
         android:textSize="18sp"
-        android:id="@+id/main_txt_enter_salary"/>
+        android:textColor="@color/black"
+        android:id="@+id/main_txt_enter_salary"
+        android:layout_marginBottom="10dp"/>
     <Button
         android:layout_below="@+id/main_txt_enter_salary"
         android:layout_width="wrap_content"
