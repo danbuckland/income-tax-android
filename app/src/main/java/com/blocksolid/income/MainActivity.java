@@ -45,13 +45,7 @@ public class MainActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.main_radio_btn_yearly) {
-                    displayAnnualDeductions();
-                } else if (checkedId == R.id.main_radio_btn_monthly) {
-                    displayMonthlyDeductions();
-                } else {
-                    displayWeeklyDeductions();
-                }
+                switchValues();
             }
         });
 
@@ -87,47 +81,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayOnGo() {
-
-        int selectedId = radioGroup.getCheckedRadioButtonId();
-
         if (salaryEditText.getText().length() > 0) {
-            radioGroup.setVisibility(View.VISIBLE);
-            breakdownTable.setVisibility(View.VISIBLE);
-            if(selectedId == R.id.main_radio_btn_yearly) {
-                displayAnnualDeductions();
-            } else if (selectedId == R.id.main_radio_btn_monthly) {
-                displayMonthlyDeductions();
-            } else {
-                displayWeeklyDeductions();
-            }
+            Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
+            taxCalculator.setGrossIncome(enteredValue);
+            switchValues();
+            showValues();
         } else {
-            radioGroup.setVisibility(View.GONE);
-            breakdownTable.setVisibility(View.GONE);
+            hideValues();
         }
-
     }
 
-    public void displayAnnualDeductions() {
-        // Display breakdown of all deductions annually
-        Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
-        taxCalculator.setGrossIncome(enteredValue);
-        setAnnualTextValues();
+    public void switchValues() {
+        int checkedId = radioGroup.getCheckedRadioButtonId();
+        if(checkedId == R.id.main_radio_btn_yearly) {
+            setAnnualTextValues();
+        } else if (checkedId == R.id.main_radio_btn_monthly) {
+            setMonthlyTextValues();
+        } else {
+            setWeeklyTextValues();
+        }
     }
 
-    public void displayMonthlyDeductions() {
-        // Display breakdown of all deductions monthly
-        Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
-        taxCalculator.setGrossIncome(enteredValue);
-        setMonthlyTextValues();
-    }
-
-    public void displayWeeklyDeductions() {
-        // Display breakdown of all deductions monthly
-        Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
-        taxCalculator.setGrossIncome(enteredValue);
-        setWeeklyTextValues();
-    }
-
+    // TODO refactor the below three methods into one that takes the period as a param
     public void setAnnualTextValues() {
         grossIncomeValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualGrossIncome()));
         personalAllowanceValueText.setText(displayAsPoundsAndPence(taxCalculator.getAnnualPersonalAllowance()));
@@ -164,13 +139,14 @@ public class MainActivity extends AppCompatActivity {
         netIncomeText.setText(R.string.main_net_weekly_income);
     }
 
-    public void clearTextValues() {
-        grossIncomeValueText.setText("");
-        personalAllowanceValueText.setText("");
-        totalTaxDeductionsValueText.setText("");
-        nationalInsuranceValueText.setText("");
-        totalDeductionsValueText.setText("");
-        netIncomeValueText.setText("");
+    public void hideValues() {
+        radioGroup.setVisibility(View.GONE);
+        breakdownTable.setVisibility(View.GONE);
+    }
+
+    public void showValues() {
+        radioGroup.setVisibility(View.VISIBLE);
+        breakdownTable.setVisibility(View.VISIBLE);
     }
 
     @Override
