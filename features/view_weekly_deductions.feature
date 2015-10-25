@@ -1,4 +1,4 @@
-@view_weekly_deductions @wip
+@view_weekly_deductions
 Feature: View weekly deductions
 
 As a user,
