@@ -14,7 +14,7 @@
         android:textSize="18sp"
         android:textColor="@color/black"
         android:id="@+id/main_txt_enter_salary"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="6dp"/>
     <Button
         android:layout_below="@+id/main_txt_enter_salary"
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/main_edit_salary"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal"
         android:checkedButton="@+id/main_radio_btn_yearly"
         android:visibility="gone">
@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/main_radio_group"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         android:stretchColumns="1"
         android:visibility="gone">
         <TableRow>
