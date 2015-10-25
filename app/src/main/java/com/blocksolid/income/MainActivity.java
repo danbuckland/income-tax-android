@@ -87,54 +87,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayOnGo() {
-        radioGroup.setVisibility(View.VISIBLE);
-        breakdownTable.setVisibility(View.VISIBLE);
 
         int selectedId = radioGroup.getCheckedRadioButtonId();
 
-        if(selectedId == R.id.main_radio_btn_yearly) {
-            displayAnnualDeductions();
-        } else if (selectedId == R.id.main_radio_btn_monthly) {
-            displayMonthlyDeductions();
+        if (salaryEditText.getText().length() > 0) {
+            radioGroup.setVisibility(View.VISIBLE);
+            breakdownTable.setVisibility(View.VISIBLE);
+            if(selectedId == R.id.main_radio_btn_yearly) {
+                displayAnnualDeductions();
+            } else if (selectedId == R.id.main_radio_btn_monthly) {
+                displayMonthlyDeductions();
+            } else {
+                displayWeeklyDeductions();
+            }
         } else {
-            displayWeeklyDeductions();
+            radioGroup.setVisibility(View.GONE);
+            breakdownTable.setVisibility(View.GONE);
         }
+
     }
 
     public void displayAnnualDeductions() {
         // Display breakdown of all deductions annually
-        if ((salaryEditText.getText()).length() > 0) {
-            Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
-            taxCalculator.setGrossIncome(enteredValue);
-            setAnnualTextValues();
-        }
-        else {
-            clearTextValues();
-        }
+        Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
+        taxCalculator.setGrossIncome(enteredValue);
+        setAnnualTextValues();
     }
 
     public void displayMonthlyDeductions() {
         // Display breakdown of all deductions monthly
-        if ((salaryEditText.getText()).length() > 0) {
-            Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
-            taxCalculator.setGrossIncome(enteredValue);
-            setMonthlyTextValues();
-        }
-        else {
-            clearTextValues();
-        }
+        Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
+        taxCalculator.setGrossIncome(enteredValue);
+        setMonthlyTextValues();
     }
 
     public void displayWeeklyDeductions() {
         // Display breakdown of all deductions monthly
-        if ((salaryEditText.getText()).length() > 0) {
-            Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
-            taxCalculator.setGrossIncome(enteredValue);
-            setWeeklyTextValues();
-        }
-        else {
-            clearTextValues();
-        }
+        Integer enteredValue = Integer.valueOf(salaryEditText.getText().toString())*100;
+        taxCalculator.setGrossIncome(enteredValue);
+        setWeeklyTextValues();
     }
 
     public void setAnnualTextValues() {
