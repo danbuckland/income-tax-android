@@ -24,9 +24,9 @@ public class TaxCalculator {
     private static final double UPPER_RATE_NI = 0.106;   // 10.60%
     private static final double TOP_RATE_NI = 0.12;      // 12.00%
 
-    int grossAnnualIncome = 0;
+    int grossIncome = 0;
     int totalDeductions = 0;
-    int netAnnualIncome = 0;
+    int netIncome = 0;
 
     // Tax
     int personalAllowance = MAX_PERSONAL_ALLOWANCE;
@@ -46,23 +46,19 @@ public class TaxCalculator {
 
     }
 
-    public void setGrossAnnualIncome(int newGrossAnnualIncome) {
-        grossAnnualIncome = newGrossAnnualIncome;
+    public void setGrossIncome(int newGrossIncome) {
+        grossIncome = newGrossIncome;
         // All calculations should be done each time the salary is set
-        calculateNetAnnualIncome();
-    }
-
-    public int getGrossAnnualIncome() {
-        return grossAnnualIncome;
+        calculateNetIncome();
     }
 
     public int calculatePersonalAllowance() {
-        if (grossAnnualIncome <= PERSONAL_ALLOWANCE_THRESHOLD) {
+        if (grossIncome <= PERSONAL_ALLOWANCE_THRESHOLD) {
             // Personal allowance set to the maximum if salary is below the threshold
             return personalAllowance = MAX_PERSONAL_ALLOWANCE;
         } else {
             // £1 is removed for each £2 earned above the personal allowance
-            int difference = grossAnnualIncome - PERSONAL_ALLOWANCE_THRESHOLD;
+            int difference = grossIncome - PERSONAL_ALLOWANCE_THRESHOLD;
             if (difference % 200 > 0) {
                 // Remove the odd pound so that the difference can be divided by 2
                 difference = difference - 100;
@@ -88,14 +84,14 @@ public class TaxCalculator {
         additionalRateDeduction = 0;
         personalAllowance = calculatePersonalAllowance();
 
-        if (grossAnnualIncome <= personalAllowance) {
+        if (grossIncome <= personalAllowance) {
             return totalTaxDeductions = 0;
         }
 
         // Calculation basic rate tax deduction
         int assessedBasicRateThreshold = TAX_BASIC_RATE_THRESHOLD + personalAllowance;
-        if (grossAnnualIncome <= assessedBasicRateThreshold) {
-            basicRateDeduction = (int)(TAX_BASIC_RATE * (grossAnnualIncome - personalAllowance));
+        if (grossIncome <= assessedBasicRateThreshold) {
+            basicRateDeduction = (int)(TAX_BASIC_RATE * (grossIncome - personalAllowance));
             return totalTaxDeductions = basicRateDeduction;
         } else {
             basicRateDeduction = (int)(TAX_BASIC_RATE
@@ -103,9 +99,9 @@ public class TaxCalculator {
         }
 
         // Calculate higher rate tax deduction
-        if (grossAnnualIncome <= TAX_HIGHER_RATE_THRESHOLD) {
+        if (grossIncome <= TAX_HIGHER_RATE_THRESHOLD) {
             higherRateDeduction = (int)(TAX_HIGHER_RATE
-                    * (grossAnnualIncome - assessedBasicRateThreshold));
+                    * (grossIncome - assessedBasicRateThreshold));
             return totalTaxDeductions = basicRateDeduction + higherRateDeduction;
         } else {
             higherRateDeduction = (int)(TAX_HIGHER_RATE
@@ -114,7 +110,7 @@ public class TaxCalculator {
 
         // Calculate additional rate tax deduction
         additionalRateDeduction = (int)(TAX_ADDITIONAL_RATE
-                * (grossAnnualIncome - TAX_HIGHER_RATE_THRESHOLD));
+                * (grossIncome - TAX_HIGHER_RATE_THRESHOLD));
         return totalTaxDeductions = basicRateDeduction
                                     + higherRateDeduction
                                     + additionalRateDeduction;
@@ -127,21 +123,21 @@ public class TaxCalculator {
         contributionBetweenUapAndUel = 0;
         contributionAboveUel = 0;
 
-        if (grossAnnualIncome <= LEL_NI) {
+        if (grossIncome <= LEL_NI) {
             return nationalInsuranceContributions = 0;
         }
 
         // Calculate earnings between LEL_NI and PT_NI and multiply by 0%
-        if (grossAnnualIncome <= PT_NI) {
-            contributionBetweenLelAndPt = (grossAnnualIncome - LEL_NI) * 0;
+        if (grossIncome <= PT_NI) {
+            contributionBetweenLelAndPt = (grossIncome - LEL_NI) * 0;
             return nationalInsuranceContributions = contributionBetweenLelAndPt;
         } else {
             contributionBetweenLelAndPt = (PT_NI - LEL_NI)*0;
         }
 
         // Calculate earnings between PT_NI and UAP_NI and multiply by TOP_RATE_NI %
-        if (grossAnnualIncome <= UAP_NI) {
-            contributionBetweenPtAndUap = (int)((grossAnnualIncome - PT_NI) * TOP_RATE_NI);
+        if (grossIncome <= UAP_NI) {
+            contributionBetweenPtAndUap = (int)((grossIncome - PT_NI) * TOP_RATE_NI);
             return nationalInsuranceContributions = contributionBetweenLelAndPt
                                                     + contributionBetweenPtAndUap;
         } else {
@@ -149,8 +145,8 @@ public class TaxCalculator {
         }
 
         // Calculate earnings between UAP and UEL and multiply by TOP_RATE_NI %
-        if (grossAnnualIncome <= UEL_NI) {
-            contributionBetweenUapAndUel = (int)((grossAnnualIncome - UAP_NI) * TOP_RATE_NI);
+        if (grossIncome <= UEL_NI) {
+            contributionBetweenUapAndUel = (int)((grossIncome - UAP_NI) * TOP_RATE_NI);
             return nationalInsuranceContributions = contributionBetweenLelAndPt
                                                     + contributionBetweenPtAndUap
                                                     + contributionBetweenUapAndUel;
@@ -159,7 +155,7 @@ public class TaxCalculator {
         }
 
         // Calculate earnings above UEL and multiply by LOWER_RATE_NI %
-        contributionAboveUel = (int)((grossAnnualIncome - UEL_NI) * LOWER_RATE_NI);
+        contributionAboveUel = (int)((grossIncome - UEL_NI) * LOWER_RATE_NI);
 
         // Add all the values together and return
         return nationalInsuranceContributions = contributionBetweenLelAndPt
@@ -168,28 +164,92 @@ public class TaxCalculator {
                                                 + contributionAboveUel;
     }
 
-    public int getTotalTaxDeductions() {
-        return totalTaxDeductions;
+    public void calculateNetIncome() {
+        totalDeductions = calculateTotalDeductions();
+        netIncome = grossIncome - totalDeductions;
     }
 
-    public int getPersonalAllowance() {
+    public int getAnnualGrossIncome() {
+        return grossIncome;
+    }
+
+    public int getAnnualPersonalAllowance() {
         return personalAllowance;
     }
 
-    public int getTotalDeductions() {
-        return totalDeductions;
+    public int getAnnualTotalTaxDeductions() {
+        return totalTaxDeductions;
     }
 
-    public int getNationalInsuranceContributions() {
+    public int getAnnualNiContributions() {
         return nationalInsuranceContributions;
     }
 
-    public void calculateNetAnnualIncome() {
-        totalDeductions = calculateTotalDeductions();
-        netAnnualIncome = grossAnnualIncome - totalDeductions;
+    public int getAnnualTotalDeductions() {
+        return totalDeductions;
     }
 
-    public int getNetAnnualIncome() {
-        return netAnnualIncome;
+    public int getAnnualNetIncome() {
+        return netIncome;
     }
+
+    public int monthly(int value) {
+        double result = value / 12.0;
+        return (int) (Math.round(result));
+    }
+
+    public int getMonthlyGrossIncome() {
+        return monthly(grossIncome);
+    }
+
+    public int getMonthlyPersonalAllowance() {
+        return monthly(personalAllowance);
+    }
+
+    public int getMonthlyTotalTaxDeductions() {
+        return monthly(totalTaxDeductions);
+    }
+
+    public int getMonthlyNiContributions() {
+        return monthly(nationalInsuranceContributions);
+    }
+
+    public int getMonthlyTotalDeductions() {
+        return monthly(totalDeductions);
+    }
+
+    public int getMonthlyNetIncome() {
+        return monthly(netIncome);
+    }
+
+    public int weekly(int value) {
+        double result = value / 52.0;
+        return (int) (Math.round(result));
+    }
+
+    public int getWeeklyGrossIncome() {
+        return weekly(grossIncome);
+    }
+
+    public int getWeeklyPersonalAllowance() {
+        return weekly(personalAllowance);
+    }
+
+    public int getWeeklyTotalTaxDeductions() {
+        return weekly(totalTaxDeductions);
+    }
+
+    public int getWeeklyNiContributions() {
+        return weekly(nationalInsuranceContributions);
+    }
+
+    public int getWeeklyTotalDeductions() {
+        return weekly(totalDeductions);
+    }
+
+    public int getWeeklyNetIncome() {
+        return weekly(netIncome);
+    }
+
+
 }
