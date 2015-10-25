@@ -7,7 +7,7 @@
     <string name="main_national_insurance">National Insurance contributions:</string>
     <string name="main_total_deductions">Total deductions:</string>
     <string name="main_btn_go">Go</string>
-    <string name="main_edit_salary_hint"><i>e.g. 25000</i></string>
+    <string name="main_edit_salary_hint"><i>e.g. 18000</i></string>
     <string name="main_btn_monthly">Monthly</string>
     <string name="main_gross_annual_income">Gross annual income:</string>
     <string name="main_net_annual_income">Net annual income:</string>
