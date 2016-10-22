@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Income</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="main_personal_allowance">Personal allowance:</string>
+    <string name="main_tax_deductions">Total tex deductions:</string>
+    <string name="main_national_insurance">National insurance contributions:</string>
+    <string name="main_total_deductions">Total deductions:</string>
+    <string name="main_btn_go">Go</string>
+    <string name="main_edit_salary_hint"><i>Enter your salarsy</i></string>
+    <string name="main_btn_monthly">Monthly</string>
+    <string name="main_gross_annual_income">Gross annual income:</string>
+    <string name="main_net_annual_income">Net annual income</string>
+    <string name="main_gross_monthly_income">Gross monthly income:</string>
+    <string name="main_net_monthly_income">Net monthly income:</string>
+    <string name="main_btn_weekly">Weekly</string>
+    <string name="main_gross_weekly_income">Gross weekly income:</string>
+    <string name="main_net_weekly_income">Net weekly income:</string>
+    <string name="main_btn_yearly">Yaerly</string>
+    <string name="main_txt_enter_salary">Enter salary amount:</string>
+
+</resources>
