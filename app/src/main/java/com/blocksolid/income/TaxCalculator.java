@@ -5,7 +5,7 @@ public class TaxCalculator {
     // 2015-16 Tax constants
     private static final int MAX_PERSONAL_ALLOWANCE = 1185000;           // £11,850
     private static final int PERSONAL_ALLOWANCE_THRESHOLD = 10000000;    // £100,000
-    private static final int TAX_BASIC_RATE_THRESHOLD = 3178500;         // £31,785
+    private static final int TAX_BASIC_RATE_THRESHOLD = 3450000;         // £34,500
     private static final int TAX_HIGHER_RATE_THRESHOLD = 15000000;       // £150,000
     private static final double TAX_BASIC_RATE = 0.2;                    // 20%
     private static final double TAX_HIGHER_RATE = 0.4;                   // 40%
