@@ -11,11 +11,11 @@ public class TaxCalculatorTest {
     // Tests for calculatePersonalAllowance method
 
     @Test
-    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf0() throws Exception {
-        // The personal allowance for a salary of £0 is the maximum £10,600
+    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf0() {
+        // The personal allowance for a salary of £0 is the maximum £11,850
         taxCalculator.setGrossIncome(0);
         int result = taxCalculator.calculatePersonalAllowance();
-        assertEquals(1060000, result);
+        assertEquals(1185000, result);
     }
 
     @Test
@@ -255,7 +255,7 @@ public class TaxCalculatorTest {
 
     @Test
     public void testNationalInsuranceCalculationForGrossAnnualIncomeOf8061() throws Exception {
-        // An annual income of £8,061 should pay £0.12 no National Insurance
+        // An annual income of £8,061 should contribute £0.12 towards National Insurance
         taxCalculator.setGrossIncome(806100);
         int result = taxCalculator.calculateNationalInsuranceContributions();
         assertEquals(12, result);
