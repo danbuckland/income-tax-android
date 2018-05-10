@@ -19,40 +19,40 @@ public class TaxCalculatorTest {
     }
 
     @Test
-    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf100001() throws Exception {
-        // The personal allowance for a salary of £100,001 is the maximum £10,600
+    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf100001() {
+        // The personal allowance for a salary of £100,001 is the maximum £11,850
         taxCalculator.setGrossIncome(10000100);
         int result = taxCalculator.calculatePersonalAllowance();
-        assertEquals(1060000, result);
+        assertEquals(1185000, result);
     }
 
     @Test
-    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf100002() throws Exception {
+    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf100002() {
         // £1 is removed from the personal allowance for every £2 over £100,000
-        // The personal allowance for a salary of £100,002 should be £10,599
+        // The personal allowance for a salary of £100,002 should be £11,849
         taxCalculator.setGrossIncome(10000200);
         int result = taxCalculator.calculatePersonalAllowance();
-        assertEquals(1059900, result);
+        assertEquals(1184900, result);
     }
 
     @Test
-    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf121199() throws Exception {
-        // The personal allowance for a salary of £121,199 should be £1
-        taxCalculator.setGrossIncome(12119900);
+    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf123699() {
+        // The personal allowance for a salary of £123,699 should be £1
+        taxCalculator.setGrossIncome(12369900);
         int result = taxCalculator.calculatePersonalAllowance();
         assertEquals(100, result);
     }
 
     @Test
-    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf121200() throws Exception {
-        // There is no personal allowance for a salary of £121,200 or over
-        taxCalculator.setGrossIncome(12120000);
+    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf123700() {
+        // There is no personal allowance for a salary of £123,700 or over
+        taxCalculator.setGrossIncome(12370000);
         int result = taxCalculator.calculatePersonalAllowance();
         assertEquals(0, result);
     }
 
     @Test
-    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf1000000() throws Exception {
+    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf1000000() {
         // There is no personal allowance for a salary of £1,000,000
         // This checks that it's not possible to have a negative personal allowance
         taxCalculator.setGrossIncome(100000000);
@@ -61,7 +61,7 @@ public class TaxCalculatorTest {
     }
 
     @Test
-    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf9999999() throws Exception {
+    public void testPersonalAllowanceCalculationForGrossAnnualIncomeOf9999999() {
         // There is no personal allowance for a salary of £9,999,999
         // This checks that it's not possible to have a negative personal allowance
         taxCalculator.setGrossIncome(999999900);
@@ -70,20 +70,20 @@ public class TaxCalculatorTest {
     }
 
     @Test
-    public void testPersonalAllowanceCalculationForNegativeGrossAnnualIncome() throws Exception {
+    public void testPersonalAllowanceCalculationForNegativeGrossAnnualIncome() {
         // Checking that a negative annual income returns the maximum personal allowance
-        taxCalculator.setGrossIncome(-10500000);
+        taxCalculator.setGrossIncome(-1186000);
         int result = taxCalculator.calculatePersonalAllowance();
-        assertEquals(1060000, result);
+        assertEquals(1185000, result);
     }
 
 
     // Tests for calculateTotalTaxDeductions method
 
     @Test
-    public void testTaxDeductionCalculationForGrossAnnualIncomeOf10600() throws Exception {
-        // A salary of £10,600 should pay no tax
-        taxCalculator.setGrossIncome(1060000);
+    public void testTaxDeductionCalculationForGrossAnnualIncomeOf11850() {
+        // A salary of £11,850 should pay no tax
+        taxCalculator.setGrossIncome(1185000);
         int result = taxCalculator.calculateTotalTaxDeductions();
         assertEquals(0, result);
     }
