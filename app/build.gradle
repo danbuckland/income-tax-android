@@ -5,7 +5,7 @@ android {
     buildToolsVersion "27.0.3"
 
     defaultConfig {
-        applicationId "com.blocksolid.income"
+        applicationId "xyz.blocksolid.income"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
