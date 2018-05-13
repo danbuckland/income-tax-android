@@ -214,155 +214,109 @@ public class TaxCalculatorTest {
     }
 
     @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf5823() {
-        // An annual income of £5,823 should pay no National Insurance
-        taxCalculator.setGrossIncome(582300);
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf6035() {
+        // An annual income of £6,035 should pay no National Insurance
+        taxCalculator.setGrossIncome(603500);
         int result = taxCalculator.calculateNationalInsuranceContributions();
         assertEquals(0, result);
     }
 
     @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf5824() {
-        // An annual income of £5,824 should pay no National Insurance
-        taxCalculator.setGrossIncome(582400);
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf6036() {
+        // An annual income of £6,036 should pay no National Insurance
+        taxCalculator.setGrossIncome(603600);
         int result = taxCalculator.calculateNationalInsuranceContributions();
         assertEquals(0, result);
     }
 
     @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf5825() {
-        // An annual income of £5,825 should pay no National Insurance
-        taxCalculator.setGrossIncome(582500);
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf603700() {
+        // An annual income of £6,037 should pay no National Insurance
+        taxCalculator.setGrossIncome(603700);
         int result = taxCalculator.calculateNationalInsuranceContributions();
         assertEquals(0, result);
     }
 
     @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf8059() {
-        // An annual income of £8,059 should pay no National Insurance
-        taxCalculator.setGrossIncome(805900);
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf8423() {
+        // An annual income of £8,423 should pay no National Insurance
+        taxCalculator.setGrossIncome(842300);
         int result = taxCalculator.calculateNationalInsuranceContributions();
         assertEquals(0, result);
     }
 
     @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf8060() {
-        // An annual income of £8,060 should pay no National Insurance
-        taxCalculator.setGrossIncome(806000);
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf8424() {
+        // An annual income of £8,424 should pay no National Insurance
+        taxCalculator.setGrossIncome(842400);
         int result = taxCalculator.calculateNationalInsuranceContributions();
         assertEquals(0, result);
     }
 
     @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf8061() {
-        // An annual income of £8,061 should contribute £0.12 towards National Insurance
-        taxCalculator.setGrossIncome(806100);
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf8425() {
+        // An annual income of £8,425 should contribute £0.12 towards National Insurance
+        taxCalculator.setGrossIncome(842500);
         int result = taxCalculator.calculateNationalInsuranceContributions();
         assertEquals(12, result);
     }
 
     @Test
      public void testNationalInsuranceCalculationForGrossAnnualIncomeOf40000() {
-        // An annual income of £40,000 should contribute £3,832.80 towards National Insurance
-        // £3,832.80 at the Top rate 12%
+        // An annual income of £40,000 should contribute £3,789.12 towards National Insurance
+        // £3,789.12 at the Top rate 12%
         taxCalculator.setGrossIncome(4000000);
         int result = taxCalculator.calculateNationalInsuranceContributions();
-        assertEquals(383280, result);
+        assertEquals(378912, result);
     }
 
     @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf40040() {
-        // An annual income of £40,040 should contribute £3,837.60 towards National Insurance
-        // £3,837.60 at the Top rate 12%
-        taxCalculator.setGrossIncome(4004000);
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf46356() {
+        // An annual income of £46,356 should contribute £4,551.84 towards National Insurance
+        // £4,551.84 at the Top rate 12%
+        taxCalculator.setGrossIncome(4635600);
         int result = taxCalculator.calculateNationalInsuranceContributions();
-        assertEquals(383760, result);
+        assertEquals(455184, result);
     }
 
     @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf40041() {
-        // An annual income of £40,040 should contribute £3,387.72 towards National Insurance
-        // £3,837.60 at the Top rate 12%
-        //     £0.12 at the Top rate 12%
-        taxCalculator.setGrossIncome(4004100);
-        int result = taxCalculator.calculateNationalInsuranceContributions();
-        assertEquals(383772, result);
-    }
-
-    @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf41697() {
-        // An annual income of £41,697 should contribute £4,036.44 towards National Insurance
-        // £3,837.60 at the Top rate 12%
-        //   £198.84 at the Top rate 12%
-        taxCalculator.setGrossIncome(4169700);
-        int result = taxCalculator.calculateNationalInsuranceContributions();
-        assertEquals(403644, result);
-    }
-
-    @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf42384() {
-        // An annual income of £42,384 should contribute £4,118.88 towards National Insurance
-        // £3,837.60 at the Top rate 12%
-        //   £281.28 at the Top rate 12%
-        //     £0.00 at the Lower rate 2%
-        taxCalculator.setGrossIncome(4238400);
-        int result = taxCalculator.calculateNationalInsuranceContributions();
-        assertEquals(411888, result);
-    }
-
-    @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf42385() {
-        // An annual income of £42,385 should contribute £4,119.00 towards National Insurance
-        // £3,837.60 at the Top rate 12%
-        //   £281.40 at the Top rate 12%
-        //     £0.00 at the Lower rate 2%
-        taxCalculator.setGrossIncome(4238500);
-        int result = taxCalculator.calculateNationalInsuranceContributions();
-        assertEquals(411900, result);
-    }
-
-    @Test
-    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf42386() {
-        // An annual income of £42,386 should contribute £4,119.02 towards National Insurance
-        // £3,837.60 at the Top rate 12%
-        //   £281.40 at the Top rate 12%
+    public void testNationalInsuranceCalculationForGrossAnnualIncomeOf46357() {
+        // An annual income of £46,357 should contribute £4,551.86 towards National Insurance
+        // £4,551.84 at the Top rate 12%
         //     £0.02 at the Lower rate 2%
-        taxCalculator.setGrossIncome(4238600);
+        taxCalculator.setGrossIncome(4635700);
         int result = taxCalculator.calculateNationalInsuranceContributions();
-        assertEquals(411902, result);
+        assertEquals(455186, result);
     }
 
     @Test
     public void testNationalInsuranceCalculationForGrossAnnualIncomeOf100000() {
-        // An annual income of £100,000 should contribute £5,271.30 towards National Insurance
-        // £3,837.60 at the Top rate 12%
-        //   £281.40 at the Top rate 12%
-        // £1,152.30 at the Lower rate 2%
+        // An annual income of £100,000 should contribute £5,624.72 towards National Insurance
+        // £4,551.84 at the Top rate 12%
+        // £1,072.88 at the Lower rate 2%
         taxCalculator.setGrossIncome(10000000);
         int result = taxCalculator.calculateNationalInsuranceContributions();
-        assertEquals(527130, result);
+        assertEquals(562472, result);
     }
 
     @Test
     public void testNationalInsuranceCalculationForGrossAnnualIncomeOf2000000() {
-        // An annual income of £2,000,000 should contribute £43,271.30 towards National Insurance
-        //  £3,837.60 at the Top rate 12%
-        //    £281.40 at the Top rate 12%
-        // £39,152.30 at the Lower rate 2%
+        // An annual income of £2,000,000 should contribute £43,624.72 towards National Insurance
+        //  £4,551.84 at the Top rate 12%
+        // £39,072.88 at the Lower rate 2%
         taxCalculator.setGrossIncome(200000000);
         int result = taxCalculator.calculateNationalInsuranceContributions();
-        assertEquals(4327130, result);
+        assertEquals(4362472, result);
     }
 
     @Test
     public void testNationalInsuranceCalculationForGrossAnnualIncomeOf9999999() {
-        // An annual income of £9,999,999 should contribute £203,271.28 towards National Insurance
-        //   £3,837.60 at the Top rate 12%
-        //     £281.40 at the Top rate 12%
-        // £199,152.28 at the Lower rate 2%
+        // An annual income of £9,999,999 should contribute £203,624.70 towards National Insurance
+        //   £4,551.84 at the Top rate 12%
+        // £199,072.86 at the Lower rate 2%
         taxCalculator.setGrossIncome(999999900);
         int result = taxCalculator.calculateNationalInsuranceContributions();
-        assertEquals(20327128, result);
+        assertEquals(20362470, result);
     }
 
     @Test

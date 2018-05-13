@@ -2,7 +2,7 @@ package com.blocksolid.income;
 
 public class TaxCalculator {
 
-    // 2015-16 Tax constants
+    // 2018-19 Tax constants
     private static final int MAX_PERSONAL_ALLOWANCE = 1185000;           // £11,850
     private static final int PERSONAL_ALLOWANCE_THRESHOLD = 10000000;    // £100,000
     private static final int TAX_BASIC_RATE_THRESHOLD = 3450000;         // £34,500
@@ -11,14 +11,14 @@ public class TaxCalculator {
     private static final double TAX_HIGHER_RATE = 0.4;                   // 40%
     private static final double TAX_ADDITIONAL_RATE = 0.45;              // 45%
 
-    // 2015-16 National Insurance constants
-    // All values and calculations assume National Insurance Category A
-    private static final int LEL_NI = 582400;    // £5,824     Lower Earnings Limit
-    private static final int PT_NI = 806000;     // £8,060     Primary Threshold
-    private static final int ST_NI = 811200;     // £8,112     Secondary Threshold
-    private static final int UAP_NI = 4004000;   // £40,040    Upper Accrual Point
-    private static final int UST_NI = 4238500;   // £42,385    Upper Secondary Threshold (under 21)
-    private static final int UEL_NI = 4238500;   // £42,385    Upper Earnings Limit
+    // 2018-19 National Insurance constants
+    // All values and calculations assume National Insurance Category A and use monthly thresholds
+    private static final int LEL_NI = 603600;    // £503/mth     Lower Earnings Limit
+    private static final int PT_NI = 842400;     // £702/mth     Primary Threshold
+    private static final int ST_NI = 842400;     // £702/mth     Secondary Threshold
+    private static final int UAP_NI = 4635600;   // N/A          Upper Accrual Point
+    private static final int UEL_NI = 4635600;   // £3,863/mth   Upper Earnings Limit
+    private static final int UST_NI = 4635600;   // £3,863/mth   Upper Secondary Threshold (under 21)
     private static final double LOWER_RATE_NI = 0.02;    //  2.00%
     private static final double MIDDLE_RATE_NI = 0.0585; //  5.85%
     private static final double UPPER_RATE_NI = 0.106;   // 10.60%
@@ -132,7 +132,7 @@ public class TaxCalculator {
             contributionBetweenLelAndPt = (grossIncome - LEL_NI) * 0;
             return nationalInsuranceContributions = contributionBetweenLelAndPt;
         } else {
-            contributionBetweenLelAndPt = (PT_NI - LEL_NI)*0;
+            contributionBetweenLelAndPt = (PT_NI - LEL_NI) * 0;
         }
 
         // Calculate earnings between PT_NI and UAP_NI and multiply by TOP_RATE_NI %
