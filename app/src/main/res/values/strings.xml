@@ -7,7 +7,7 @@
     <string name="main_national_insurance">National Insurance contributions:</string>
     <string name="main_total_deductions">Total deductions:</string>
     <string name="main_btn_go">Go</string>
-    <string name="main_edit_salary_hint"><i>e.g. 18000</i></string>
+    <string name="main_edit_salary_hint"><i>e.g. 23000</i></string>
     <string name="main_btn_monthly">Monthly</string>
     <string name="main_gross_annual_income">Gross annual income:</string>
     <string name="main_net_annual_income">Net annual income:</string>
@@ -17,6 +17,6 @@
     <string name="main_gross_weekly_income">Gross weekly income:</string>
     <string name="main_net_weekly_income">Net weekly income:</string>
     <string name="main_btn_yearly">Yearly</string>
-    <string name="main_txt_enter_salary">Enter salary amount:</string>
+    <string name="main_txt_enter_salary">Enter your yearly salary:</string>
 
 </resources>

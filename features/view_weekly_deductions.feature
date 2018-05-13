@@ -13,22 +13,22 @@ so that I can see a detailed breakdown of how much tax I am paying weekly.
     And I choose to view a weekly breakdown
     Then I should see the following breakdown
     | Gross weekly income:              | £509.62 |
-    | Personal allowance:               | £203.85 |
-    | Total tax deductions:             |  £61.15 |
-    | National Insurance contributions: |  £42.55 |
-    | Total deductions:                 | £103.71 |
-    | Net weekly income:                | £405.91 |
+    | Personal allowance:               | £227.88 |
+    | Total tax deductions:             |  £56.35 |
+    | National Insurance contributions: |  £41.71 |
+    | Total deductions:                 |  £98.06 |
+    | Net weekly income:                | £411.56 |
 
   Scenario: Calculate weekly deductions against the UK Prime Minister's salary
-    When I enter an annual income of "142500"
+    When I enter an annual income of "152532"
     And I choose to view a weekly breakdown
     Then I should see the following breakdown
-    | Gross weekly income:              | £2,740.38 |
+    | Gross weekly income:              | £2,933.31 |
     | Personal allowance:               |     £0.00 |
-    | Total tax deductions:             |   £973.90 |
-    | National Insurance contributions: |   £117.72 |
-    | Total deductions:                 | £1,091.62 |
-    | Net weekly income:                | £1,648.76 |
+    | Total tax deductions:             | £1,043.07 |
+    | National Insurance contributions: |   £128.37 |
+    | Total deductions:                 | £1,171.44 |
+    | Net weekly income:                | £1,761.87 |
 
   Scenario: Calculate weekly deductions against a senior London banker's salary
     When I enter an annual income of "1300000"
@@ -36,7 +36,7 @@ so that I can see a detailed breakdown of how much tax I am paying weekly.
     Then I should see the following breakdown
     | Gross weekly income:              |  £25,000.00 |
     | Personal allowance:               |       £0.00 |
-    | Total tax deductions:             |  £10,983.52 |
-    | National Insurance contributions: |     £562.91 |
-    | Total deductions:                 |  £11,546.43 |
-    | Net weekly income:                |  £13,453.57 |
+    | Total tax deductions:             |  £10,973.08 |
+    | National Insurance contributions: |     £569.71 |
+    | Total deductions:                 |  £11,542.78 |
+    | Net weekly income:                |  £13,457.22 |
